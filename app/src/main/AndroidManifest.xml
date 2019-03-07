@@ -2,7 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wp.android_base">
 
+    <!--网络-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!--下载更新-->
+    <!--VISIBILITY_HIDDEN表示不显示任何通知栏提示的权限-->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+    <!--DownloadManager-->
+    <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+    <!--android 8.0,非应用市场下载的apk,需要安装权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <!--外部存储写入权限-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+
     <application
+        android:name=".AndroidBaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,6 +31,70 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".test.base.LogTestActivity" />
+        <activity android:name=".test.banner.BannerActivity" />
+        <activity android:name=".miner.MiningActivity" />
+        <activity android:name=".test.WidgetTestActivity" />
+
+        <activity android:name=".test.tab.TabWidgetActivity"/>
+        <activity android:name=".test.TestFragmentActivity"/>
+
+        <activity android:name=".test.banner.HorSWithViewPagerActivity"/>
+        <activity android:name=".test.banner.PagerMaginActivity"/>
+        <activity android:name=".test.RecyclerViewTestActivity"/>
+        <activity android:name=".test.banner.RvWithViewPagerActivity"/>
+
+        <activity android:name=".test.banner.RvBannerActivity"/>
+
+
+        <!--*****************************项目一般常用框架，组件，工具类************************************-->
+        <activity android:name=".test.base.ProjectsBaseActivity"/>
+
+        <!--更新用到-->
+        <service android:name=".base.update.DownloadApkService"
+            android:exported="false"/>
+        <!--更新用到-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.wp.android_base.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+        <!--网络-->
+        <activity android:name=".test.base.HttpApiTestActivity" />
+        <!--dialog-->
+        <activity android:name=".test.base.dialog.DialogTestActivity" />
+        <!--glide-->
+        <activity android:name=".test.base.GlideTestActivity" />
+        <!--SharedPreferences-->
+        <activity android:name=".test.base.SpTestActivity"/>
+        <!--多语言-->
+        <activity android:name=".test.base.MultiLanguageActivity"/>
+        <!--Span-->
+        <activity android:name=".test.base.SpanTestActivity"/>
+        <!--*****************************项目一般常用框架，组件，工具类************************************-->
+
+
+        <!--*****************************Check************************************-->
+        <activity android:name=".test.check.LifecycleTestActivity"
+            android:screenOrientation="sensor"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <!--*****************************Check************************************-->
+
+        <!--*****************************Demo************************************-->
+        <activity android:name=".demo.CalendarTaibaiActivity"/>
+        <activity android:name=".test.check.event.TouchEventActivity"/>
+        <!--*****************************Demo************************************-->
+
     </application>
 
 </manifest>

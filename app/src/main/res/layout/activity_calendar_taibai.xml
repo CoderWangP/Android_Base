@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<!--    <TextView
+        android:id="@+id/view_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#FF0000"
+        android:gravity="center"
+        android:text="这是动态滚动"
+        android:textSize="22sp"
+        android:clickable="true"
+        android:onClick="forward2Login"/>-->
+
+    <com.wp.android_base.demo.NestedScrollLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:scroll_view_id="@+id/rv_content"
+        app:top_view_id="@+id/view_calendar">
+
+        <TextView
+            android:id="@+id/view_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#FF0000"
+            android:gravity="center"
+            android:text="这是动态滚动"
+            android:textSize="22sp"
+            android:clickable="true"
+            android:onClick="forward2Login"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </com.wp.android_base.demo.NestedScrollLayout>
+
+<!--    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />-->
+
+</LinearLayout>

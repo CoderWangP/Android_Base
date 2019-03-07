@@ -1,18 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.wp.android_base.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/glide_test_dog"
+        android:scaleType="centerCrop"/>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:layout_marginTop="50dp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="projectsBase"
+                    android:text="项目基本常用的一些框架，组件，工具类>>>>" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="banner"
+                    android:text="banner" />
+
+                <EditText
+                    android:id="@+id/et_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:focusable="false"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="mining"
+                    android:text="mining" />
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="widgetTest"
+                    android:text="widgetTest" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="tab"
+                    android:text="tab" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="testFragment"
+                    android:text="testFragment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="hsv"
+                    android:onClick="hsv"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="pagerMagin"
+                    android:onClick="pagerMagin"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="recyclerView"
+                    android:onClick="recyclerView"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="rvWithVp"
+                    android:onClick="rvWithVp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="recyclerView as banner"
+                    android:onClick="rvBanner"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="check activity lifecycle when orientation changed"
+                    android:onClick="checkLifecycle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="calendar like taibai"
+                    android:onClick="calendar"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="touch事件测试"
+                    android:onClick="touch"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

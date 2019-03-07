@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="50dp">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="httpApiTest"
+                    android:text="HttpApiTest" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="glide"
+                    android:text="glide" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="logTest"
+                    android:text="LogTest" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="dialog"
+                    android:text="dialog" />
+
+                <TextView
+                    android:id="@+id/glide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="glide"
+                    android:text="glide"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="sp"
+                    android:text="sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="update"
+                    android:text="update" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="multiLanguage"
+                    android:text="多语言" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:onClick="span"
+                    android:text="Span" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>

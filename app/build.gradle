@@ -1,32 +1,139 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: 'generate.gradle'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
     defaultConfig {
         applicationId "com.wp.android_base"
-        minSdkVersion 15
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    //KeyStore配置
+    def keyStorePropertiesFile = rootProject.file("keystore.properties")
+    def keyStoreProperties = new Properties()
+    keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+    signingConfigs {
+        release {
+            storeFile file(keyStoreProperties['storeFile'])
+            storePassword keyStoreProperties['storePassword']
+            keyAlias keyStoreProperties['keyAlias']
+            keyPassword keyStoreProperties['keyPassword']
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            //混淆
+            minifyEnabled true
+            //加载默认配置的混淆文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //签名
+            signingConfig signingConfigs.release
+            //zipAlign优化
+            zipAlignEnabled true
+            //移除无用的资源文件
+            shrinkResources true
         }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    //渠道
+    flavorDimensions "version"
+    productFlavors {
+        internal {
+            dimension "version"
+        }
+        play {
+            dimension "version"
+        }
+    }
+
+    //android studio 3.0之前，重命名apk名称
+/*    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile;
+            if(outputFile != null && outputFile.name.endsWith('.apk')){
+                def apkName = "test.apk"
+                output.outputFile = new File(outputFile.parent,apkName)
+            }
+        }
+    }*/
+
+/*    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name.contains("release")) {
+                outputFileName = "test_${defaultConfig.versionName}.apk"
+            }
+        }
+    }*/
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.android.supportVersion}"
+    implementation "com.android.support:cardview-v7:${rootProject.ext.android.supportVersion}"
+    implementation "com.android.support:design:${rootProject.ext.android.supportVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
-    configurations.all {
-        resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+    //rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.5'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.google.code.gson:gson:2.8.2'
+
+    //rxlifecycle
+    implementation 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-android:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+
+    //stetho(网络调试)
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    //leakcanary(内存泄漏检测)
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    //glide(图片加载）
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    implementation('com.github.bumptech.glide:okhttp3-integration:4.7.1') {
+        exclude group: 'glide-parent'
     }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+}
+repositories {
+    mavenCentral()
 }

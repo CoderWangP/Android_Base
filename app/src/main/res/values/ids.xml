@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--dialog的取消view的id-->
+    <item type="id" name="dialog_cancel_id"></item>
+
+    <!--tab相关-->
+    <item type="id" name="tab_layout"></item>
+    <item type="id" name="vp_with_tab"></item>
+
+    <!--statusBar-->
+    <item name="statusbarutil_fake_status_bar_view" type="id"></item>
+    <item name="statusbarutil_translucent_view" type="id"></item>
+
+</resources>

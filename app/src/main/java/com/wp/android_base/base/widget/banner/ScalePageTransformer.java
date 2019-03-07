@@ -1,0 +1,41 @@
+package com.wp.android_base.base.widget.banner;
+
+import android.os.Build;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+
+/**
+ * Created by wangpeng on 2018/7/18.
+ * ViewPager transformer
+ */
+public class ScalePageTransformer implements ViewPager.PageTransformer {
+
+    private float MAX_SCALE = 1f;
+    private float MIN_SCALE = 0.88f;
+
+    @Override
+    public void transformPage(View page, float position) {
+
+        if (position < -1) {
+            position = -1;
+        } else if (position > 1) {
+            position = 1;
+        }
+
+        float tempScale = position < 0 ? 1 + position : 1 - position;
+
+        float slope = (MAX_SCALE - MIN_SCALE) / 1;
+        //一个公式
+        float scaleValue = MIN_SCALE + tempScale * slope;
+        page.setScaleX(scaleValue);
+        page.setScaleY(scaleValue);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+            page.getParent().requestLayout();
+        }
+    }
+
+    public void setMinScale(float minScale){
+        MIN_SCALE = minScale;
+    }
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tx_miner_start"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="miner"
+        android:background="#25e8c7"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:onClick="minering"/>
+
+    <TextView
+        android:id="@+id/tx_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tx_miner_start"
+        android:textSize="16sp"
+        android:textColor="#FF0000"
+        android:layout_marginTop="20dp"
+        android:text="error信息"/>
+
+</RelativeLayout>

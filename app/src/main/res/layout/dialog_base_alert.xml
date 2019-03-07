@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/base_alert_dialog_title"
+        android:textColor="#1A1C1C"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/tx_base_alert_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="30dp"
+        android:gravity="left"
+        android:textColor="#363854"
+        android:textSize="15sp" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="0.2dp"
+        android:background="#dedfe6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@id/dialog_cancel_id"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/base_alert_dialog_negative"
+            android:textColor="#989aae"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="#dedfe6" />
+
+        <TextView
+            android:id="@+id/tx_base_alert_positive"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/base_alert_dialog_positive"
+            android:textColor="#1A1C1C"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
