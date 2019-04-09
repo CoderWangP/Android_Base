@@ -43,13 +43,15 @@ public abstract class BaseTabFragment extends BaseFragment {
         if (mRootView == null)
         {
             mRootView = inflater.inflate(getContentLayoutId(), container, false);
+            getBundleData();
             initializeView();
             registerListener();
             mIsPrepared = true;
-            getBundleData();
+            //初始化本地数据
             requestDatas();
+            //请求网络数据
+            requestNetDatas();
         }
-
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null)
         {
@@ -71,26 +73,20 @@ public abstract class BaseTabFragment extends BaseFragment {
      */
     private void onVisible()
     {
-        requestNetDatas();
+        loadNetDatas();
     }
-
-    @Override
-    protected void requestDatas() {
-        requestNetDatas();
-    }
-
     /**
      *加载网络数据
      */
-    protected void requestNetDatas(){
+    protected void loadNetDatas(){
         if (!mIsPrepared || !mIsVisible || mHasLoadOnce)
         {
             return;
         }
         Logger.e(TAG,"加载网络数据");
-        loadNetData();
+        requestNetDatas();
         mHasLoadOnce = true;
     }
 
-    protected abstract void loadNetData();
+    protected abstract void requestNetDatas();
 }

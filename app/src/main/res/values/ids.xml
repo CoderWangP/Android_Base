@@ -2,14 +2,16 @@
 <resources>
 
     <!--dialog的取消view的id-->
-    <item type="id" name="dialog_cancel_id"></item>
+    <item type="id" name="dialog_cancel_id"/>
 
     <!--tab相关-->
-    <item type="id" name="tab_layout"></item>
-    <item type="id" name="vp_with_tab"></item>
+    <item type="id" name="tab_layout"/>
+    <item type="id" name="vp_with_tab"/>
+    <item type="id" name="tx_tab_title"/>
+    <item type="id" name="image_tab_icon"/>
 
     <!--statusBar-->
-    <item name="statusbarutil_fake_status_bar_view" type="id"></item>
-    <item name="statusbarutil_translucent_view" type="id"></item>
+    <item name="statusbarutil_fake_status_bar_view" type="id"/>
+    <item name="statusbarutil_translucent_view" type="id"/>
 
 </resources>

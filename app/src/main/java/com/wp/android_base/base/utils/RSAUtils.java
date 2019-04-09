@@ -248,34 +248,4 @@ public class RSAUtils {
         return privateKey;
     }
 
-
-    public static String readKeyFromAssets(Context context, String fileName){
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-        try {
-            bufferedReader = new BufferedReader(
-                    new InputStreamReader(context.getAssets().open(fileName), "UTF-8"));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (bufferedReader != null) {
-                    bufferedReader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return stringBuilder.toString();
-    }
-
-
-    public static String getTinkerPatchPath(String flavor,String baseVersion) {
-        return AppModule.provideApplication().getFilesDir().getAbsolutePath() + File.separator + flavor + "_patch" + baseVersion + File.separator + flavor + "_patch" + ".apk";
-    }
-
 }

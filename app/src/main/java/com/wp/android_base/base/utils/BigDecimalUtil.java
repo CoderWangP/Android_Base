@@ -189,6 +189,6 @@ public class BigDecimalUtil {
      * @return
      */
     private static boolean isEmpty(String value){
-        return TextUtils.isEmpty(value) && "null".equalsIgnoreCase(value);
+        return TextUtils.isEmpty(value) || "null".equalsIgnoreCase(value);
     }
 }

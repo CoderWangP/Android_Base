@@ -57,11 +57,11 @@ public class TabFragment extends BaseTabFragment{
         return datas;
     }
 
+
     @Override
-    protected void loadNetData() {
+    protected void requestNetDatas() {
 
     }
-
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 

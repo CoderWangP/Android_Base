@@ -225,6 +225,9 @@
                     android:text="touch事件测试"
                     android:onClick="touch"/>
 
+
+
+
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

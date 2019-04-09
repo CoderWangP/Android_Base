@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
+import com.wp.android_base.base.tab.MainTabActivity;
 import com.wp.android_base.base.update.DownloadApkService;
 import com.wp.android_base.base.utils.FileUtil;
 import com.wp.android_base.test.base.dialog.DialogTestActivity;
@@ -69,5 +70,13 @@ public class ProjectsBaseActivity extends BaseActivity{
     public void span(View v){
         Intent intent = new Intent(this,SpanTestActivity.class);
         startActivity(intent);
+    }
+
+    public void aes(View view) {
+        startActivity(new Intent(this, AESActivity.class));
+    }
+
+    public void mainTab(View v){
+        startActivity(new Intent(this, MainTabActivity.class));
     }
 }

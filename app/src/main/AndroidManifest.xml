@@ -81,6 +81,14 @@
         <activity android:name=".test.base.MultiLanguageActivity"/>
         <!--Span-->
         <activity android:name=".test.base.SpanTestActivity"/>
+
+        <!--aes加密解密-->
+        <activity android:name=".test.base.AESActivity"
+            android:screenOrientation="portrait"/>
+
+        <!--MainTab-->
+        <activity android:name=".base.tab.MainTabActivity"
+            android:screenOrientation="portrait"/>
         <!--*****************************项目一般常用框架，组件，工具类************************************-->
 
 
@@ -94,6 +102,8 @@
         <activity android:name=".demo.CalendarTaibaiActivity"/>
         <activity android:name=".test.check.event.TouchEventActivity"/>
         <!--*****************************Demo************************************-->
+
+
 
     </application>
 

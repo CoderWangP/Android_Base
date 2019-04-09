@@ -56,7 +56,7 @@ public class ApiException {
             ex.message = AppModule.provideApplication().getString(R.string.parse_error);
             return ex;
         } else if (e instanceof ConnectException) {
-            ex = new ResponseThrowable(e, ERROR.NETWORD_ERROR);
+            ex = new ResponseThrowable(e, ERROR.NETWORK_ERROR);
             ex.message = AppModule.provideApplication().getString(R.string.connect_error);
             return ex;
         } else if (e instanceof javax.net.ssl.SSLHandshakeException) {
@@ -98,7 +98,7 @@ public class ApiException {
         /**
          * 网络错误
          */
-        public static final int NETWORD_ERROR = 1002;
+        public static final int NETWORK_ERROR = 1002;
         /**
          * 协议出错
          */

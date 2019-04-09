@@ -1,0 +1,26 @@
+1.查看当前内存情况，及当前存在的activity数量
+  adb shell dumpsys meminfo com.***
+
+2.查看当前项目的gradle依赖树关系
+  ./gradlew app:dependencies --configuration playReleaseCompileClasspath
+  注意：configuration后面跟的是buildVariant的name + CompileClasspath，表示只显示
+  google play渠道下的依赖树关系
+
+3.查看一个类的继承关系
+  选中一个类 按下control + H
+
+4.显示隐藏文件 
+  shift+cmmand+.  注意不要少了这个小圆点
+
+
+5.以读写方式启动模拟器
+  cd /Users/wangpeng/Library/Android/sdk/platform-tools
+  emulator -avd test -writable-system
+
+
+
+
+
+  
+
+

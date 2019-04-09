@@ -131,6 +131,10 @@ dependencies {
     implementation('com.github.bumptech.glide:okhttp3-integration:4.7.1') {
         exclude group: 'glide-parent'
     }
+    //pkcs5加密
+    implementation 'com.madgag.spongycastle:core:1.58.0.0'
+
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }

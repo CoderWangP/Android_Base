@@ -14,6 +14,7 @@ import com.wp.android_base.base.utils.log.LogLevelDef;
 import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.demo.CalendarTaibaiActivity;
 import com.wp.android_base.miner.MiningActivity;
+import com.wp.android_base.test.base.AESActivity;
 import com.wp.android_base.test.base.ProjectsBaseActivity;
 import com.wp.android_base.test.RecyclerViewTestActivity;
 import com.wp.android_base.test.TestFragmentActivity;
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void rsa() {
-        String text = "128fbec97fd740160defc74c5d340b5c";
+/*        String text = "128fbec97fd740160defc74c5d340b5c";
         String enTx = "RvvScEmuXH+wHTupQ/c9jt1aQ2Meht1v49y6kvyBiuhYYv4+5QnFgXJkUBQk8d8U/MQRTKMPr+Qt" +
                 "1mobJNdjUwbsZjqbEtHpn2bF/UQCrm07JNapn578jmkTYnyvxZsuiRzUbbc5RcAe99vAkMyDfSTG" +
                 "/Do5LhO5h8BQ2RilW8a9ZAZL48UgX2yblvR2tAGYLzF8PnWWOhhoEhzYfZYb4PJFMbb2AtDqS5KR" +
@@ -134,7 +135,7 @@ public class MainActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
             LogUtil.e("加密解密",e.getMessage());
-        }
+        }*/
     }
 
 
@@ -214,4 +215,6 @@ public class MainActivity extends BaseActivity {
     public void projectsBase(View view) {
         startActivity(new Intent(this, ProjectsBaseActivity.class));
     }
+
+
 }
