@@ -1,8 +1,11 @@
 package com.wp.android_base.base.tab;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.LongSparseArray;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,6 +37,12 @@ public abstract class BaseTabActivity extends BaseActivity {
     @Override
     protected void initializeView() {
         super.initializeView();
+
+        SparseArray<String> array = new SparseArray<>();
+        LongSparseArray<String> array1 = new LongSparseArray<>();
+        ArrayMap<String,Object> arrayMap = new ArrayMap<>();
+
+
         mTabLayout = findViewById(R.id.tab_layout);
         mVpWithTab = findViewById(R.id.vp_with_tab);
         if (mTabLayout == null || mVpWithTab == null) {

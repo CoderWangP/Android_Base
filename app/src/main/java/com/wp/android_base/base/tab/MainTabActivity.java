@@ -2,6 +2,8 @@ package com.wp.android_base.base.tab;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
