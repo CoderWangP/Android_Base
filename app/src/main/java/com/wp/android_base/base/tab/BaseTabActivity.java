@@ -39,6 +39,7 @@ public abstract class BaseTabActivity extends BaseActivity {
         if (mTabLayout == null || mVpWithTab == null) {
             return;
         }
+        mVpWithTab.setOffscreenPageLimit(1);
         mTabBeans = createTabBeans();
         mFragments = createFragments(mTabBeans);
 

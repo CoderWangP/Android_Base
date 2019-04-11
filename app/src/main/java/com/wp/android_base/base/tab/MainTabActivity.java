@@ -38,9 +38,9 @@ public class MainTabActivity extends BaseTabActivity {
     @Override
     protected List<TabBean> createTabBeans() {
         String[] titles = getResources().getStringArray(R.array.tabs);
-        if(CheckDataUtil.hasData(titles)){
+        if (CheckDataUtil.hasData(titles)) {
             List<TabBean> tabBeans = new ArrayList<>();
-            for(int i=0;i<titles.length;i++){
+            for (int i = 0; i < titles.length; i++) {
                 TabBean tabBean = new TabBean(titles[i]);
                 tabBeans.add(tabBean);
             }
@@ -51,7 +51,7 @@ public class MainTabActivity extends BaseTabActivity {
 
     @Override
     protected List<BaseTabFragment> createFragments(List<TabBean> tabBeans) {
-        if(CheckDataUtil.hasData(tabBeans)){
+        if (CheckDataUtil.hasData(tabBeans)) {
             List<BaseTabFragment> fragments = new ArrayList<>();
             for (int i = 0; i < tabBeans.size(); i++) {
                 MainTabFragment mainTabFragment = new MainTabFragment();
@@ -73,7 +73,7 @@ public class MainTabActivity extends BaseTabActivity {
 
     @Override
     protected void onTabClick(TabLayout.Tab tab, int position) {
-        Logger.e(TAG,"Click:" + position);
+        Logger.e(TAG, "Click:" + position);
         ToastUtil.show(String.valueOf(position + 1));
         tab.select();
     }
@@ -86,8 +86,11 @@ public class MainTabActivity extends BaseTabActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 ToastUtil.show("选中" + tab.getPosition());
                 View v = tab.getCustomView();
-                if(v != null){
-                    TextView textView = v.findViewById(R.id.tx_tab_title);
+                if (v == null) {
+                    return;
+                }
+                TextView textView = v.findViewById(R.id.tx_tab_title);
+                if (textView != null) {
                     textView.setTextSize(16);
                     textView.setTypeface(null, Typeface.BOLD);
                 }
@@ -96,8 +99,11 @@ public class MainTabActivity extends BaseTabActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 View v = tab.getCustomView();
-                if(v != null){
-                    TextView textView = v.findViewById(R.id.tx_tab_title);
+                if (v == null) {
+                    return;
+                }
+                TextView textView = v.findViewById(R.id.tx_tab_title);
+                if (textView != null) {
                     textView.setTextSize(14);
                     textView.setTypeface(null, Typeface.NORMAL);
                 }

@@ -50,7 +50,7 @@ public abstract class BaseTabFragment extends BaseFragment {
             //初始化本地数据
             requestDatas();
             //请求网络数据
-            requestNetDatas();
+            loadNetDatas();
         }
         ViewGroup parent = (ViewGroup) mRootView.getParent();
         if (parent != null)
