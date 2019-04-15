@@ -41,7 +41,6 @@ public class MainTabActivity extends BaseTabActivity {
 
     @Override
     protected List<TabBean> createTabBeans() {
-        LocalBroadcastManager
         String[] titles = getResources().getStringArray(R.array.tabs);
         if (CheckDataUtil.hasData(titles)) {
             List<TabBean> tabBeans = new ArrayList<>();
