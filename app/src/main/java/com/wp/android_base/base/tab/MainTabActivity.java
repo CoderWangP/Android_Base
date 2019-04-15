@@ -1,10 +1,12 @@
 package com.wp.android_base.base.tab;
 
+import android.app.IntentService;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -39,6 +41,7 @@ public class MainTabActivity extends BaseTabActivity {
 
     @Override
     protected List<TabBean> createTabBeans() {
+        LocalBroadcastManager
         String[] titles = getResources().getStringArray(R.array.tabs);
         if (CheckDataUtil.hasData(titles)) {
             List<TabBean> tabBeans = new ArrayList<>();
