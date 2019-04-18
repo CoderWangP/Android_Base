@@ -104,6 +104,10 @@
         <!--*****************************Demo************************************-->
 
 
+        <activity android:name=".test.rx.RxTestActivity"
+            android:screenOrientation="portrait"/>
+
+
 
     </application>
 

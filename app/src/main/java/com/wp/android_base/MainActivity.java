@@ -1,6 +1,7 @@
 package com.wp.android_base;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.facebook.stetho.common.LogUtil;
 import com.wp.android_base.base.BaseActivity;
+import com.wp.android_base.base.tab.model.TabBean;
 import com.wp.android_base.base.utils.BigDecimalUtil;
 import com.wp.android_base.base.utils.PackageUtil;
 import com.wp.android_base.base.utils.log.LogLevelDef;
@@ -26,6 +28,7 @@ import com.wp.android_base.test.banner.RvBannerActivity;
 import com.wp.android_base.test.banner.RvWithViewPagerActivity;
 import com.wp.android_base.test.check.LifecycleTestActivity;
 import com.wp.android_base.test.check.event.TouchEventActivity;
+import com.wp.android_base.test.rx.RxTestActivity;
 import com.wp.android_base.test.tab.TabWidgetActivity;
 import com.wp.android_base.base.utils.RSAUtils;
 import com.wp.android_base.base.utils.ScreenUtil;
@@ -35,6 +38,11 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Arrays;
+
+import io.reactivex.Observable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
 
 /**
  *
@@ -56,7 +64,7 @@ public class MainActivity extends BaseActivity {
     protected void initializeView() {
         super.initializeView();
         mSwipeRefreshLayout = findViewById(R.id.swipe_refresh);
-        mSwipeRefreshLayout.setProgressViewOffset(true,ScreenUtil.dp2px(140), ScreenUtil.dp2px(160));
+        mSwipeRefreshLayout.setProgressViewOffset(true, ScreenUtil.dp2px(140), ScreenUtil.dp2px(160));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -65,7 +73,7 @@ public class MainActivity extends BaseActivity {
                     public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
-                },3 * 1000);
+                }, 3 * 1000);
             }
         });
 //        test();
@@ -74,6 +82,7 @@ public class MainActivity extends BaseActivity {
         byte[] bytes = new byte[1];
         secureRandom.nextBytes(bytes);
         bytesToBits(bytes);
+
     }
 
     public static byte[] getByteArray(byte value) {
@@ -82,18 +91,18 @@ public class MainActivity extends BaseActivity {
             byteArr[i] = (byte) (value & 1); //获取最低位
             value = (byte) (value >> 1); //每次右移一位
         }
-        Logger.e(TAG,"byteArr=" + Arrays.toString(byteArr));
+        Logger.e(TAG, "byteArr=" + Arrays.toString(byteArr));
         return byteArr;
     }
 
     private static boolean[] bytesToBits(byte[] data) {
-        Logger.e(TAG,"byte[0]=" + data[0]);
+        Logger.e(TAG, "byte[0]=" + data[0]);
         boolean[] bits = new boolean[data.length * 8];
         for (int i = 0; i < data.length; ++i)
             for (int j = 0; j < 8; ++j)
                 bits[(i * 8) + j] = (data[i] & (1 << (7 - j))) != 0;
 
-        Logger.e(TAG,"bits=" + Arrays.toString(bits));
+        Logger.e(TAG, "bits=" + Arrays.toString(bits));
         return bits;
     }
 
@@ -108,14 +117,14 @@ public class MainActivity extends BaseActivity {
 
         mTxGlide = findViewById(R.id.glide);
 
-        String value = BigDecimalUtil.add("1.22","2",-2);
+        String value = BigDecimalUtil.add("1.22", "2", -2);
         BigDecimal bigDecimal = new BigDecimal("109");
-        String value1 = bigDecimal.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString();
-        Logger.e(TAG,value1);
-        Logger.e(TAG,BigDecimalUtil.scale(value1));
+        String value1 = bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString();
+        Logger.e(TAG, value1);
+        Logger.e(TAG, BigDecimalUtil.scale(value1));
 
         Logger.e(TAG, PackageUtil.getPackageName(this));
-        Logger.e(TAG,PackageUtil.isAppProcess(this));
+        Logger.e(TAG, PackageUtil.isAppProcess(this));
     }
 
     private void rsa() {
@@ -139,12 +148,12 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public void banner(View v){
+    public void banner(View v) {
         Intent intent = new Intent(this, BannerActivity.class);
         startActivity(intent);
     }
 
-    public void mining(View v){
+    public void mining(View v) {
 //        ToastUtil.show("toast测试" + Math.random());
         Intent intent = new Intent(this, MiningActivity.class);
         startActivity(intent);
@@ -171,7 +180,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void testFragment(View view) {
-        Intent intent = new Intent(this,TestFragmentActivity.class);
+        Intent intent = new Intent(this, TestFragmentActivity.class);
         startActivity(intent);
     }
 
@@ -217,4 +226,7 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public void rx(View view) {
+        startActivity(new Intent(this, RxTestActivity.class));
+    }
 }

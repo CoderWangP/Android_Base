@@ -37,7 +37,6 @@ public abstract class BaseTabActivity extends BaseActivity {
     @Override
     protected void initializeView() {
         super.initializeView();
-
         SparseArray<String> array = new SparseArray<>();
         LongSparseArray<String> array1 = new LongSparseArray<>();
         ArrayMap<String,Object> arrayMap = new ArrayMap<>();
