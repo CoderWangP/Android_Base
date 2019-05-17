@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    
+    <!-- ShadowLayout 阴影 -->
+    <declare-styleable name="ShadowLayout">
+        <attr name="shadow_color" format="color"></attr>
+        <attr name="shadow_radius" format="dimension"/>
+        <attr name="shadow_dx" format="dimension"/>
+        <attr name="shadow_dy" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="TabWidget">
+        <attr name="right_margin" format="dimension"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="NestedScrollLayout">
+        <attr name="top_view_id" format="reference"></attr>
+        <attr name="scroll_view_id" format="reference"></attr>
+    </declare-styleable>
+</resources>

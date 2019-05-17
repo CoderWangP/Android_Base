@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">Android_Base</string>
+
+
+    <!--网络相关-->
+    <string name="network_unable_use">当前网络不可用，请检查网络情况</string>
+    <string name="net_error">网络错误</string>
+    <string name="parse_error">解析错误</string>
+    <string name="connect_error">连接失败</string>
+    <string name="ssl_handshake_error">证书验证失败</string>
+    <string name="socket_timeout_error">连接超时</string>
+    <string name="unknown_error">未知错误</string>
+
+    <!--提示弹窗-->
+    <string name="base_alert_dialog_title">温馨提示</string>
+    <string name="base_alert_dialog_positive">确认</string>
+    <string name="base_alert_dialog_negative">取消</string>
+
+
+    <string name="test_multi_language">这是一个多语言的测试。。。</string>
+    <string name="progress_dialog_remind_tips">等待中...</string>
 </resources>

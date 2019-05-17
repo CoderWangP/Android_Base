@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tx_test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FF0000"
+        android:textSize="15sp" />
+
+    <com.wp.android_base.test.banner.LinkScrollContainer
+        android:id="@+id/ll_link_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:id="@+id/hsv"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_container_1"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:background="#FF0000"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tx_1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:gravity="center"
+                        android:text="position_1"
+                        android:textSize="26sp"
+                        android:background="#0000FF"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_container_2"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:background="#00FF00"
+                    android:layout_marginLeft="14dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tx_2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:gravity="center"
+                        android:text="position_2"
+                        android:textSize="26sp"
+                        android:background="#0000FF"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_banner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.wp.android_base.test.banner.LinkScrollContainer>
+
+</LinearLayout>

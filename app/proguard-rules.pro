@@ -19,3 +19,107 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+# # -------------------------------------------
+# #  ######## 忽略警告  ##########
+# # -------------------------------------------
+-dontusemixedcaseclassnames
+-dontskipnonpubliclibraryclasses
+-verbose
+-ignorewarnings
+
+
+# # -------------------------------------------
+# #  ######## android组件  ##########
+# # -------------------------------------------
+-keep public class * extends android.app.Fragment
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Application
+-keep public class * extends android.app.Service
+-keep public class * extends android.content.BroadcastReceiver
+-keep public class * extends android.preference.Preference
+-keep public class * extends android.content.ContentProvider
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.annotation.**
+-keep public class * extends android.support.v7.**
+
+
+# # -------------------------------------------
+# #  ########Gson混淆##########
+# # -------------------------------------------
+-keep class com.wp.android_base.model.** {*;}
+-keep class com.google.gson.stream.** { *; }
+-keep class sun.misc.Unsafe { *; }
+-keepattributes EnclosingMethod
+-keepattributes Signature
+-keepattributes *Annotation*
+
+
+# # -------------------------------------------
+# #  ######## Retrofit混淆 ##########
+# # -------------------------------------------
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
+-keepattributes Signature
+-keepattributes Exceptions
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+
+# # -------------------------------------------
+# #  ########OkHttp混淆##########
+# # -------------------------------------------
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+# A resource is loaded with a relative path so the package of this class must be preserved.
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+-dontwarn okhttp3.logging.**
+-keep class okhttp3.internal.**{*;}
+
+# # -------------------------------------------
+# #  ########RxJava,RxAndroid混淆##########
+# # -------------------------------------------
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+
+# # -------------------------------------------
+# #  ########RxLifeCycle混淆##########
+# # -------------------------------------------
+-keep class com.trello.rxlifecycle2.** { *; }
+-keep interface com.trello.rxlifecycle2.** { *; }
+
+
+# # -------------------------------------------
+# #  ########Stetho混淆##########
+# # -------------------------------------------
+-keep class com.facebook.stetho.** { *; }
+-dontwarn com.facebook.stetho.**
+
+# # -------------------------------------------
+# #  ########leakcanary混淆##########
+# # -------------------------------------------
+-keep class org.eclipse.mat.** { *; }
+-keep class com.squareup.leakcanary.** { *; }
+
+# # -------------------------------------------
+# #  ########Glide混淆##########
+# # -------------------------------------------
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+# for DexGuard only
+#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule

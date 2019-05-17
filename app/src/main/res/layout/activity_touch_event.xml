@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wp.android_base.test.check.event.TouchViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#FF0000">
+
+        <com.wp.android_base.test.check.event.TouchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="50dp"
+            android:background="#00FF00"/>
+
+
+    </com.wp.android_base.test.check.event.TouchViewGroup>
+
+</LinearLayout>

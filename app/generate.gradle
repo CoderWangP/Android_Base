@@ -1,0 +1,64 @@
+/**
+ * 保存生成的apk，mapping文件到本地路径下
+ */
+
+//执行productFlavors 同名任务的时候，就会执行
+tasks.whenTaskAdded { task ->
+//    println("whenTaskAdded:")
+    android.productFlavors.all { flavor ->
+        if (task.name.startsWith("assemble") && task.name.endsWith("Release")) {
+            println("task.name.startsWith:》》》》》》")
+            task.doLast {
+                copyFile();
+            }
+        }
+    }
+}
+
+def copyFile() {
+//    String desktopDir = "$rootDir"
+    //打包输出配置
+    def outputPropertiesFile = rootProject.file("output.properties")
+    def outputProperties = new Properties()
+    outputProperties.load(new FileInputStream(outputPropertiesFile))
+    String outputDir = outputProperties['releaseOutputPath'];
+//    println("outputDir:" + outputDir)
+    String rootDir = "$rootDir"
+    File file = new File(rootDir + java.io.File.separator + "md5.txt")
+    if(!file.exists()){
+        file.mkdir();
+    }
+    Date date = new Date()
+    def dayTime = new java.text.SimpleDateFormat("yyyyMMdd-HHmm").format(date)
+    android.productFlavors.all { flavorTow ->
+        copy {
+            //复制copy文件
+            def flavorName = flavorTow.name
+            File cacheFile = new File(outputDir + java.io.File.separator + "v" + android.defaultConfig.versionName + "_" + dayTime + java.io.File.separator + flavorName);
+            if (!cacheFile.exists()) {
+                cacheFile.mkdirs();
+            }
+            from "$buildDir" + '/outputs/apk/' + flavorName + "/release"
+            //注意通配符
+            include "*" + flavorName + "*.apk"
+            into cacheFile.getPath()
+            rename {
+                flavorName + "_v" + android.defaultConfig.versionName + ".apk"
+            }
+        }
+        copy {
+            //复制mapping文件
+            def flavorName = flavorTow.name
+            File cacheFile = new File(outputDir + java.io.File.separator + "v" + android.defaultConfig.versionName + "_" + dayTime + java.io.File.separator + flavorName);
+            if (!cacheFile.exists()) {
+                cacheFile.mkdirs();
+            }
+            from "$buildDir" + '/outputs/mapping/' + flavorName + "/release"
+            include "mapping.txt"
+            into cacheFile.getPath()
+            rename {
+                flavorName + "_v" + android.defaultConfig.versionName + "_mapping.txt"
+            }
+        }
+    }
+}
