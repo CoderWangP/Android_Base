@@ -238,6 +238,32 @@
                     android:text="Rx测试"
                     android:onClick="rx"/>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="Constraint"
+                    android:onClick="constraint"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="EditText Focus"
+                    android:onClick="editFocus"/>
 
             </LinearLayout>
         </ScrollView>

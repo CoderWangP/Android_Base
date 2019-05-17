@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!--允许开启http请求  Android P(9.0) 默认不允许http网络请求-->
+    <domain-config cleartextTrafficPermitted="true">
+        <!--http请求的域名-->
+        <domain includeSubdomains="true">120.78.126.134</domain>
+    </domain-config>
+<!--    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>-->
+</network-security-config>

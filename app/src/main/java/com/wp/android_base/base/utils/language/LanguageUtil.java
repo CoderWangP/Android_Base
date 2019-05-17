@@ -2,6 +2,7 @@ package com.wp.android_base.base.utils.language;
 
 import android.content.Context;
 
+import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.Sp;
 
 import java.util.Locale;
@@ -81,5 +82,25 @@ public class LanguageUtil {
             }
         }
         return language;
+    }
+
+
+    public static boolean isChinese(){
+        String lang = getSavedAppLanguage(AppModule.provideContext());
+        return LanguageDef.SIMPLE_CHINESE.equals(lang) || LanguageDef.TRADITIONAL_CHINESE.equals(lang);
+    }
+    public static boolean isSimpleChinese(){
+        String lang = getSavedAppLanguage(AppModule.provideContext());
+        return LanguageDef.SIMPLE_CHINESE.equals(lang);
+    }
+
+    public static boolean isTraditionalChinese(){
+        String lang = getSavedAppLanguage(AppModule.provideContext());
+        return LanguageDef.TRADITIONAL_CHINESE.equals(lang);
+    }
+
+    public static boolean isEnglish(){
+        String lang = getSavedAppLanguage(AppModule.provideContext());
+        return LanguageDef.ENGLISH.equals(lang);
     }
 }

@@ -15,7 +15,9 @@ import com.wp.android_base.base.utils.PackageUtil;
 import com.wp.android_base.base.utils.log.LogLevelDef;
 import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.demo.CalendarTaibaiActivity;
+import com.wp.android_base.demo.EditTextFocusActivity;
 import com.wp.android_base.miner.MiningActivity;
+import com.wp.android_base.test.ConstraintLayoutActivity;
 import com.wp.android_base.test.base.AESActivity;
 import com.wp.android_base.test.base.ProjectsBaseActivity;
 import com.wp.android_base.test.RecyclerViewTestActivity;
@@ -228,5 +230,13 @@ public class MainActivity extends BaseActivity {
 
     public void rx(View view) {
         startActivity(new Intent(this, RxTestActivity.class));
+    }
+
+    public void constraint(View view) {
+        startActivity(new Intent(this, ConstraintLayoutActivity.class));
+    }
+
+    public void editFocus(View view) {
+        startActivity(new Intent(this, EditTextFocusActivity.class));
     }
 }
