@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoSizeMaxTextSize="30sp"
@@ -41,9 +41,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="projectsBase"
-                    android:text="项目基本常用的一些框架，组件，工具类>>>>" />
+                    android:text="项目基本常用的一些框架，组件，工具类>>>>"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -54,7 +55,8 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="banner"
-                    android:text="banner" />
+                    android:text="banner"
+                    android:textAllCaps="false"/>
 
                 <EditText
                     android:id="@+id/et_test"
@@ -64,7 +66,7 @@
                     android:focusable="false"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -75,11 +77,12 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="mining"
-                    android:text="mining" />
+                    android:text="mining"
+                    android:textAllCaps="false"/>
 
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -90,10 +93,11 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="widgetTest"
-                    android:text="widgetTest" />
+                    android:text="widgetTest"
+                    android:textAllCaps="false"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -104,9 +108,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="tab"
-                    android:text="tab" />
+                    android:text="tab"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -117,9 +122,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:onClick="testFragment"
-                    android:text="testFragment" />
+                    android:text="testFragment"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -130,9 +136,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="hsv"
-                    android:onClick="hsv"/>
+                    android:onClick="hsv"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -143,9 +150,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="pagerMagin"
-                    android:onClick="pagerMagin"/>
+                    android:onClick="pagerMagin"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -156,9 +164,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="recyclerView"
-                    android:onClick="recyclerView"/>
+                    android:onClick="recyclerView"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -169,10 +178,11 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="rvWithVp"
-                    android:onClick="rvWithVp"/>
+                    android:onClick="rvWithVp"
+                    android:textAllCaps="false"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -183,9 +193,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="recyclerView as banner"
-                    android:onClick="rvBanner"/>
+                    android:onClick="rvBanner"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -196,9 +207,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="check activity lifecycle when orientation changed"
-                    android:onClick="checkLifecycle"/>
+                    android:onClick="checkLifecycle"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -209,10 +221,11 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="calendar like taibai"
-                    android:onClick="calendar"/>
+                    android:onClick="calendar"
+                    android:textAllCaps="false"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -223,9 +236,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="touch事件测试"
-                    android:onClick="touch"/>
+                    android:onClick="touch"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -236,9 +250,10 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="Rx测试"
-                    android:onClick="rx"/>
+                    android:onClick="rx"
+                    android:textAllCaps="false"/>
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -249,10 +264,11 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="Constraint"
-                    android:onClick="constraint"/>
+                    android:onClick="constraint"
+                    android:textAllCaps="false"/>
 
 
-                <TextView
+                <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -263,7 +279,36 @@
                     android:clickable="true"
                     android:maxLines="1"
                     android:text="EditText Focus"
-                    android:onClick="editFocus"/>
+                    android:onClick="editFocus"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="service"
+                    android:onClick="service"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="Save CustomView State"
+                    android:onClick="customViewState"
+                    android:textAllCaps="false"/>
 
             </LinearLayout>
         </ScrollView>

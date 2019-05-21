@@ -97,7 +97,7 @@
 
 
         <!--*****************************Check************************************-->
-        <activity android:name=".test.check.LifecycleTestActivity"
+        <activity android:name=".test.check.lifeccycle.LifecycleTestActivity"
             android:screenOrientation="sensor"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <!--*****************************Check************************************-->
@@ -118,6 +118,17 @@
         <activity android:name=".demo.EditTextFocusActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".demo.livedata.LiveDataActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".service.TestServiceActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".test.view.CustomViewStateActivity"
+            android:screenOrientation="sensor"/>
+
+        <service android:name=".service.MyService"
+            android:exported="false"/>
 
 
     </application>

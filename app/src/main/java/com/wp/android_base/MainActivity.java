@@ -1,24 +1,20 @@
 package com.wp.android_base;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.facebook.stetho.common.LogUtil;
 import com.wp.android_base.base.BaseActivity;
-import com.wp.android_base.base.tab.model.TabBean;
 import com.wp.android_base.base.utils.BigDecimalUtil;
 import com.wp.android_base.base.utils.PackageUtil;
-import com.wp.android_base.base.utils.log.LogLevelDef;
 import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.demo.CalendarTaibaiActivity;
 import com.wp.android_base.demo.EditTextFocusActivity;
 import com.wp.android_base.miner.MiningActivity;
+import com.wp.android_base.service.TestServiceActivity;
 import com.wp.android_base.test.ConstraintLayoutActivity;
-import com.wp.android_base.test.base.AESActivity;
 import com.wp.android_base.test.base.ProjectsBaseActivity;
 import com.wp.android_base.test.RecyclerViewTestActivity;
 import com.wp.android_base.test.TestFragmentActivity;
@@ -28,23 +24,16 @@ import com.wp.android_base.test.banner.HorSWithViewPagerActivity;
 import com.wp.android_base.test.banner.PagerMaginActivity;
 import com.wp.android_base.test.banner.RvBannerActivity;
 import com.wp.android_base.test.banner.RvWithViewPagerActivity;
-import com.wp.android_base.test.check.LifecycleTestActivity;
+import com.wp.android_base.test.check.lifeccycle.LifecycleTestActivity;
 import com.wp.android_base.test.check.event.TouchEventActivity;
 import com.wp.android_base.test.rx.RxTestActivity;
 import com.wp.android_base.test.tab.TabWidgetActivity;
-import com.wp.android_base.base.utils.RSAUtils;
 import com.wp.android_base.base.utils.ScreenUtil;
+import com.wp.android_base.test.view.CustomViewStateActivity;
 
 import java.math.BigDecimal;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Arrays;
-
-import io.reactivex.Observable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
 
 /**
  *
@@ -238,5 +227,13 @@ public class MainActivity extends BaseActivity {
 
     public void editFocus(View view) {
         startActivity(new Intent(this, EditTextFocusActivity.class));
+    }
+
+    public void service(View view) {
+        startActivity(new Intent(this, TestServiceActivity.class));
+    }
+
+    public void customViewState(View view) {
+        startActivity(new Intent(this, CustomViewStateActivity.class));
     }
 }
