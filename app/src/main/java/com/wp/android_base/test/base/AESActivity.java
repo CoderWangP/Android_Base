@@ -54,6 +54,8 @@ public class AESActivity extends BaseActivity{
         Logger.e("value=" + Arrays.toString(value));
 
         byte[] data = new byte[]{10};
+
+        mTxOriginData.setVisibility(View.VISIBLE);
     }
 
     private boolean[] bytesToBits(byte[] data) {

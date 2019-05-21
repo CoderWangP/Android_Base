@@ -1,14 +1,17 @@
-package com.wp.android_base.test.check;
+package com.wp.android_base.test.check.lifeccycle;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.log.Logger;
+import com.wp.android_base.test.view.CustomViewStateActivity;
 
 /**
  * Created by wangpeng on 2018/10/29.
@@ -35,11 +38,16 @@ import com.wp.android_base.base.utils.log.Logger;
 
 public class LifecycleTestActivity extends BaseActivity{
 
-    public static final String TAG = "LifecycleTestActivity";
+    private static final String TAG = "LifecycleTestActivity";
 
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
+    }
+
+    public void forward2Another(View v){
+        startActivity(new Intent(this, CustomViewStateActivity.class));
+//        finish();
     }
 
     @Override
@@ -51,33 +59,6 @@ public class LifecycleTestActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.e(TAG,"onCreate");
-     /*   Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(8000);
-                    Logger.e(TAG,System.currentTimeMillis() / 1000 + "");
-                    Logger.e(TAG,"AAA");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(12000);
-                    Logger.e(TAG,System.currentTimeMillis() / 1000 + "");
-                    Logger.e(TAG,"BBB");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.wp.android_base.test;
 
+import android.util.SparseArray;
+
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 
@@ -10,6 +12,7 @@ import com.wp.android_base.base.BaseActivity;
  */
 
 public class ConstraintLayoutActivity extends BaseActivity{
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_constraint;
