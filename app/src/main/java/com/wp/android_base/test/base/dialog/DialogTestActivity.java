@@ -1,5 +1,6 @@
 package com.wp.android_base.test.base.dialog;
 
+import android.arch.lifecycle.Lifecycle;
 import android.view.View;
 
 import com.wp.android_base.R;

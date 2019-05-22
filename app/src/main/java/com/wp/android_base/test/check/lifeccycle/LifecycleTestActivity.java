@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.log.Logger;
+import com.wp.android_base.model.gituser.GitUser;
+import com.wp.android_base.test.base.dialog.MyDialogFragment;
 import com.wp.android_base.test.view.CustomViewStateActivity;
+
+import java.util.HashSet;
 
 /**
  * Created by wangpeng on 2018/10/29.
@@ -47,7 +52,31 @@ public class LifecycleTestActivity extends BaseActivity{
 
     public void forward2Another(View v){
         startActivity(new Intent(this, CustomViewStateActivity.class));
+        getValue();
 //        finish();
+        HashSet<GitUser> hashSet = new HashSet();
+        hashSet.add(new GitUser());
+    }
+
+    public void showDialog(View view){
+/*        MyDialogFragment myDialogFragment = new MyDialogFragment();
+        myDialogFragment.show(getSupportFragmentManager());*/
+
+        new AlertDialog.Builder(this)
+                .setTitle("这是一个弹窗")
+                .setIcon(R.drawable.glide_test_dog).show();
+    }
+
+    public int getValue(){
+        try {
+           throw new RuntimeException("抛出异常");
+        }catch (Exception e){
+            Logger.e(TAG,"catch");
+        }finally {
+            Logger.e(TAG,"finally");
+        }
+        Logger.e(TAG,"return");
+        return -1;
     }
 
     @Override
