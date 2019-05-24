@@ -40,7 +40,6 @@ import java.util.HashSet;
  *   配置了configChanges，生命周期(从Activity创建开始)：
  *    onCreate -> onStart -> onResume -> onConfigurationChanged
  */
-
 public class LifecycleTestActivity extends BaseActivity{
 
     private static final String TAG = "LifecycleTestActivity";
@@ -88,6 +87,7 @@ public class LifecycleTestActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.e(TAG,"onCreate");
+        GitUser gitUser = new GitUser();
     }
 
     @Override
