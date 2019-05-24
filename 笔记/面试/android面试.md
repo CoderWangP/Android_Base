@@ -219,7 +219,55 @@
 ## 21. 注解vs枚举
 ## 22. 常用布局
 	LinearLayout,RelativeLayout,FrameLayout,AbsoluteLayout,ConstraintLayout
+## 23. 方法数超过64k,65535怎么处理
+   ### 1. 如果你的minSdkVersion的设置>=21(android 5.0)，只需要在build.gradle中设置multiDexEnabled为true
+   	android {
+	    defaultConfig {
+		...
+		minSdkVersion 21 
+		targetSdkVersion 26
+                //配置multiDexEnabled
+		multiDexEnabled true
+	    }
+	    ...
+	}
+   ### 2. 如果你的minSdkVersion的设置<21:
+       1. 在AndroidMainfest.xml中添加自定义的application。
+          	<?xml version="1.0" encoding="utf-8"?>
+		<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+		   package="com.example.myapp">
+		   <application
+			   android:name="MyApplication" >
+		       ...
+		   </application>
+		</manifest>
 
-      
+        2.在自定义Application的attachBaseContext()方法中调用Multidex.install(this)。
+		public class MyApplication extends SomeOtherApplication {
+			  @Override
+			  protected void attachBaseContext(Context base) {
+			     super.attachBaseContext(context);
+			     Multidex.install(this);
+			  }
+		}
+        3.同样要在build.gradle中添加multiDexEnabled，而且还要添加com.android.support:multidex依赖包
+		android {
+		    defaultConfig {
+			...
+			minSdkVersion 15 
+			targetSdkVersion 26
+			multiDexEnabled true
+		    }
+		    dexOptions {
+			incremental true
+			javaMaxHeapSize "4g"
+		    }
+		    ...
+		}
+
+		dependencies {
+		  compile 'com.android.support:multidex:1.0.1'
+		}
+
    
    
