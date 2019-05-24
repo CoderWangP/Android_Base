@@ -21,4 +21,23 @@
     2.构造代码块：类中直接用{}包裹，每一次创建对象时调用
     3.构造方法：每一次创建对象时会调用
     执行顺序：静态代码块 > main()方法 > 构造代码块 > 构造方法
+  ### 4. 反序列化对单例的影响
+     在反序列化时，ObjectInputStream 因为利用反射机制调用了readObject,进而调用invokeReadResolve()，
+     该方法利用反射机制创建了新对象，破坏了单例的唯一性。（序列化会通过反射调用无参数的构造方法创建一个新的对象。）
+     解决方法：
+     实现Serializable接口，重写readResolve方法，在readResolve方法里直接返回该单例对象
+     public class Singleton implement Serializable {
+        public static class Builder {
+          public static Singleton instance = new Singleton();
+        }
+
+        public static Singleton getInstance(){
+          return Builder.instance;
+        }
+
+        private Object readResolve(){
+          retutn Builder.instance;
+        }
+      }
+
       
