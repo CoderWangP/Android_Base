@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.log.Logger;
+import com.wp.android_base.model.gituser.GitUser;
+import com.wp.android_base.test.base.dialog.MyDialogFragment;
 import com.wp.android_base.test.view.CustomViewStateActivity;
+
+import java.util.HashSet;
 
 /**
  * Created by wangpeng on 2018/10/29.
@@ -35,7 +40,6 @@ import com.wp.android_base.test.view.CustomViewStateActivity;
  *   配置了configChanges，生命周期(从Activity创建开始)：
  *    onCreate -> onStart -> onResume -> onConfigurationChanged
  */
-
 public class LifecycleTestActivity extends BaseActivity{
 
     private static final String TAG = "LifecycleTestActivity";
@@ -47,7 +51,25 @@ public class LifecycleTestActivity extends BaseActivity{
 
     public void forward2Another(View v){
         startActivity(new Intent(this, CustomViewStateActivity.class));
-//        finish();
+        getValue();
+    }
+
+    public void showDialog(View view){
+        new AlertDialog.Builder(this)
+                .setTitle("这是一个弹窗")
+                .setIcon(R.drawable.glide_test_dog).show();
+    }
+
+    public int getValue(){
+        try {
+           throw new RuntimeException("抛出异常");
+        }catch (Exception e){
+            Logger.e(TAG,"catch");
+            Logger.e(TAG,"return");
+            return -1;
+        }finally {
+            Logger.e(TAG,"finally");
+        }
     }
 
     @Override
@@ -59,6 +81,7 @@ public class LifecycleTestActivity extends BaseActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.e(TAG,"onCreate");
+        GitUser gitUser = new GitUser();
     }
 
     @Override

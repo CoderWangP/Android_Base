@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
 
-    <com.wp.android_base.base.widget.ShadowLayout
+<!--    <com.wp.android_base.base.widget.ShadowLayout
         android:layout_width="200dp"
         android:layout_height="200dp"
         app:shadow_color="#33FF0000"
@@ -19,6 +19,12 @@
             android:layout_height="match_parent"
             android:background="#FF0000"/>
 
-    </com.wp.android_base.base.widget.ShadowLayout>
+    </com.wp.android_base.base.widget.ShadowLayout>-->
+
+
+    <com.wp.android_base.widget.CustomView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FF00"/>
 
 </LinearLayout>

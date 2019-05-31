@@ -126,6 +126,8 @@
 
         <activity android:name=".test.view.CustomViewStateActivity"
             android:screenOrientation="sensor"/>
+        <activity android:name=".test.java.clone.TestCloneActivity" />
+        <activity android:name=".test.java.JavaActivity" />
 
         <service android:name=".service.MyService"
             android:exported="false"/>

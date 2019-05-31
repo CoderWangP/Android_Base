@@ -8,6 +8,10 @@ import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.log.Logger;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+
 /**
  * Created by wp on 2019/5/21.
  * <p>

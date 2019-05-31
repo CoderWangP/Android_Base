@@ -26,6 +26,7 @@ import com.wp.android_base.test.banner.RvBannerActivity;
 import com.wp.android_base.test.banner.RvWithViewPagerActivity;
 import com.wp.android_base.test.check.lifeccycle.LifecycleTestActivity;
 import com.wp.android_base.test.check.event.TouchEventActivity;
+import com.wp.android_base.test.java.JavaActivity;
 import com.wp.android_base.test.rx.RxTestActivity;
 import com.wp.android_base.test.tab.TabWidgetActivity;
 import com.wp.android_base.base.utils.ScreenUtil;
@@ -235,5 +236,9 @@ public class MainActivity extends BaseActivity {
 
     public void customViewState(View view) {
         startActivity(new Intent(this, CustomViewStateActivity.class));
+    }
+
+    public void java(View view) {
+        startActivity(new Intent(this, JavaActivity.class));
     }
 }
