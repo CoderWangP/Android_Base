@@ -277,6 +277,7 @@
 		4.从一个activity启动另一个activity
 	二,这个方法的调用时机是在onStop前，但是它和onPause没有既定的时序关系
 ## 25 .View的生命周期
-		
+	1.构造方法(两个参数)-> onFinishInflate->onVisibilityChanged->onAttachedToWindow
+	->onMeasure->onSizeChanged->onLayout->onDraw->onWindowFocusChanged		
 
    
