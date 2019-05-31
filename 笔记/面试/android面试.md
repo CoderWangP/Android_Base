@@ -269,5 +269,13 @@
 		  compile 'com.android.support:multidex:1.0.1'
 		}
 
-   
+## 24 .onSaveInstanceState 什么时候调用
+	一,非用户主动明确结束（按back键，自定义click方法调用finish）时都会调用onSaveInstanceState：
+		1.屏幕旋转
+		2.按HOME键
+		3.内存不足
+		4.从一个activity启动另一个activity
+	二,这个方法的调用时机是在onStop前，但是它和onPause没有既定的时序关系
+
+
    
