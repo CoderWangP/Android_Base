@@ -215,7 +215,13 @@
        4.PhantomReference（虚引用）:
        一个只被虚引用持有的对象可能会在任何时候被GC回收。虚引用对对象的生存周期完全没有影响，
        也无法通过虚引用来获取对象实例，仅仅能在对象被回收时，
-       得到一个系统通知（只能通过是否被加入到ReferenceQueue来判断是否被GC，这也是唯一判断对象是否被GC的途径）。
+       得到一个系统通知（只能通过是否被加入到ReferenceQueue来判断是否被GC，这也是唯一判断对象是否被GC的途径）
+       
+       虚引用必须和引用队列(ReferenceQueue)联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用	   加入到与之关联的引用队列中。
+            String str = new String("abc");
+	    ReferenceQueue queue = new ReferenceQueue();
+	    // 创建虚引用，要求必须与一个引用队列关联
+	    PhantomReference pr = new PhantomReference(str, queue);
 ## 21. 注解vs枚举
 ## 22. 常用布局
 	LinearLayout,RelativeLayout,FrameLayout,AbsoluteLayout,ConstraintLayout
