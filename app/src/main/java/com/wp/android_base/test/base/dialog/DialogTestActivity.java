@@ -15,6 +15,7 @@ import com.wp.android_base.base.widget.dialog.base.BaseDialog;
 
 public class DialogTestActivity extends BaseActivity {
 
+    MyDialogFragment myDialogFragment;
 
     @Override
     protected int getContentLayoutId() {
@@ -23,7 +24,12 @@ public class DialogTestActivity extends BaseActivity {
 
 
     public void showDialog(View v) {
-        MyDialogFragment myDialogFragment = new MyDialogFragment();
+        if(myDialogFragment != null && myDialogFragment.isShowing()){
+            return;
+        }
+        if(myDialogFragment == null){
+            myDialogFragment = new MyDialogFragment();
+        }
         myDialogFragment.show(getSupportFragmentManager());
     }
 

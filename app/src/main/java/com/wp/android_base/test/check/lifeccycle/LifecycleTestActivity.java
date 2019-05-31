@@ -52,15 +52,9 @@ public class LifecycleTestActivity extends BaseActivity{
     public void forward2Another(View v){
         startActivity(new Intent(this, CustomViewStateActivity.class));
         getValue();
-//        finish();
-        HashSet<GitUser> hashSet = new HashSet();
-        hashSet.add(new GitUser());
     }
 
     public void showDialog(View view){
-/*        MyDialogFragment myDialogFragment = new MyDialogFragment();
-        myDialogFragment.show(getSupportFragmentManager());*/
-
         new AlertDialog.Builder(this)
                 .setTitle("这是一个弹窗")
                 .setIcon(R.drawable.glide_test_dog).show();
@@ -71,11 +65,11 @@ public class LifecycleTestActivity extends BaseActivity{
            throw new RuntimeException("抛出异常");
         }catch (Exception e){
             Logger.e(TAG,"catch");
+            Logger.e(TAG,"return");
+            return -1;
         }finally {
             Logger.e(TAG,"finally");
         }
-        Logger.e(TAG,"return");
-        return -1;
     }
 
     @Override

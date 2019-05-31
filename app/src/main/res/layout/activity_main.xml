@@ -310,6 +310,20 @@
                     android:onClick="customViewState"
                     android:textAllCaps="false"/>
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeMinTextSize="14sp"
+                    android:autoSizeStepGranularity="1sp"
+                    android:autoSizeTextType="uniform"
+                    android:clickable="true"
+                    android:maxLines="1"
+                    android:text="java test"
+                    android:onClick="java"
+                    android:textAllCaps="false"/>
+
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
