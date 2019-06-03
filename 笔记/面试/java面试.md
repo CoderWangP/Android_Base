@@ -62,4 +62,80 @@
         join:ThreadA.join，在线程B，调用该方法，当前线程B暂停执行，等待线程A执行完毕后，再执行线程B
         yield:让出cpu资源，线程由running状态变成runable状态，不阻塞，
               此时，cpu选择其他相同或者优先级更高的线程执行，如果没有，则该线程继续执行
-      
+ ### 8.线程池
+    public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+     }
+     1.参数解释
+       corePoolSize：核心线程数量，默认情况下，即使核心线程没有任务执行，核心线程也是存活的。
+       maximumPoolSize：线程池中最大线程数量，最大线程数量=核心线程数量+非核心线程数量，当任务数量超过最大线程数量时，
+                       任务就可能会被阻塞，非核心线程只有在核心线程用完，且不超过最大线程数量时，才会被创建，非核心
+                       线程在任务执行完，且非核心线程等待任务时间超过keepAliveTime时就会被销毁。
+       keepAliveTime：超时时间，默认情况下，非核心线程等待任务时间超过这个时间，就会被销毁，当allowCoreThreadTimeOut设置为
+                      true时，此属性也同样适用于核心线程。
+       timeUnit:超时时间的的单位。
+       workQueue：阻塞队列，我们提交的任务runnable会被存储在这个对象上
+       threadFactory:线程工厂，创建新的线程任务
+       RejectedExecutionHandler：拒绝策略
+     2.任务分配策略（一个新任务提交到线程池）
+       1.当核心线程有空闲时，启动一个核心线程去执行任务。
+       2.当核心线程用完时，将任务放入BlockingQueue任务队列中，等待执行。
+       3.当核心线程用完，且任务队列已满时，如果当前池内的线程数小于最大线程数，则创建一个新线程执行任务，
+         如果当前池内的线程数已经大于最大线程数，那么线程池会拒绝执行该任务，具体的拒绝策略由RejectedExecutionHandler来执行。
+     3.任务拒绝策略（RejectedExecutionHandler）
+       ThreadPoolExecutor.AbortPolicy：丢弃任务，并抛出RejectedExecutionException异常。
+       ThreadPoolExecutor.DiscardPolicy：丢弃任务，但是不抛出异常。
+       ThreadPoolExecutor.DiscardOldestPolicy：丢弃任务队列最前面的任务，然后重新尝试执行最新的任务（重复此过程）
+       ThreadPoolExecutor.CallerRunsPolicy：由调用该任务的线程去执行（添加该任务的线程）
+     4.BlockingQueue（任务队列，阻塞队列）  
+       ArrayBlockingQueue：基于数组的先进先出队列，有界，创建时，需指定大小。
+       LinkedBlockingDeque：基于链表的先进先出队列，创建时，如果不指定大小，默认为Integer.MAX_VALUE。
+       SynchronousQueue：同步队列，不会保存提交的任务，而是直接将提交的任务交给线程来执行。
+     5.创建线程池
+       java不提倡直接使用ThreadPoolExecutor，而是由Executors类去创建线程池，常用的如下：
+       1.Executors.newFixedThreadPool(5)：固定容量大小的线程池
+             public static ExecutorService newFixedThreadPool(int nThreads) {
+                  return new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>());
+             }
+          核心线程数量与最大线程数量是一样的，超时时间为0，因为全是核心线程，不会被回收，
+          采用的任务队列是未指定大小的LinkedBlockingQueue（默认大小为Integer.MAX_VALUE）。
+       2.Executors.newSingleThreadExecutor()：容量为1的线程池
+             public static ExecutorService newSingleThreadExecutor() {
+                  return new FinalizableDelegatedExecutorService
+                      (new ThreadPoolExecutor(1, 1,
+                                              0L, TimeUnit.MILLISECONDS,
+                                              new LinkedBlockingQueue<Runnable>()));
+             }
+          核心线程数量与最大线程数量都为1的线程池，超时时间为0，全是核心线程，
+          采用的任务队列是未指定大小的LinkedBlockingQueue（默认大小为Integer.MAX_VALUE）。
+       3.Executors.newCachedThreadPool()：容量为Integer.MAX_VALUE的线程池
+            public static ExecutorService newCachedThreadPool() {
+                return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                              60L, TimeUnit.SECONDS,
+                                              new SynchronousQueue<Runnable>());
+            }
+         核心线程数为0，最大线程数为Integer.MAX_VALUE，即没有核心线程，超时时间为60s，
+         采用的任务队列是同步队列SynchronousQueue，收到提交任务，会直接查看有无空闲线程，
+         有则交给其处理，没有则直接创建线程去处理。空闲线程在执行完任务等待接收任务的时间超过60s，就会被回收。
+       4.Executors.newScheduledThreadPool(5);定时或者周期性的执行的线程池
+            public ScheduledThreadPoolExecutor(int corePoolSize) {
+                super(corePoolSize, Integer.MAX_VALUE,
+                      DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,
+                      new DelayedWorkQueue());
+            }
+            最大线程数量为Integer.MAX_VALUE,按超时时间升序排序的队列，定时或者周期执行
+     6.线程池的其他方法
+       1.shutDown()  关闭线程池，不影响已经提交的任务
+       2.shutDownNow() 关闭线程池，并尝试去终止正在执行的线程
+       3.allowCoreThreadTimeOut(boolean value) 允许核心线程闲置超时时被回收
+       4.submit 一般情况下我们使用execute来提交任务，但是有时候可能也会用到submit，使用submit的好处是submit有返回值。
+       5.beforeExecute() - 任务执行前执行的方法
+       6.afterExecute() -任务执行结束后执行的方法
+       7.terminated() -线程池关闭后执行的方法
