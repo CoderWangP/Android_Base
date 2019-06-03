@@ -54,4 +54,12 @@
   ### 6.switch中能否使用string做参数
       jdk1.6，只能用int，
       jdk1.7之后，可以用String
+  ### 7.线程
+      1.sleep，wait区别
+        sleep:thread里的方法，线程阻塞，不让出锁
+        wait：object里的方法，线程不阻塞，让出锁，让其他线程对象执行，需要其他线程对象唤醒继续执行
+      2.join,yield区别
+        join:ThreadA.join，在线程B，调用该方法，当前线程B暂停执行，等待线程A执行完毕后，再执行线程B
+        yield:让出cpu资源，线程由running状态变成runable状态，不阻塞，
+              此时，cpu选择其他相同或者优先级更高的线程执行，如果没有，则该线程继续执行
       
