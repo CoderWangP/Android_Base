@@ -139,3 +139,32 @@
        5.beforeExecute() - 任务执行前执行的方法
        6.afterExecute() -任务执行结束后执行的方法
        7.terminated() -线程池关闭后执行的方法
+ ### 9. try catch finally
+      1. 只有当try代码块发生异常的时候，才会执行到catch代码块
+      2. 不管try中是否发生异常，finally都会执行。
+            以下两种情况例外：
+               一：try中不发生异常时，try块中有System.exit(0);
+               二：try中发生异常时，catch中有System.exit(0);
+            说明：System.exit(0) 代码的作用是退出虚拟机;
+
+      3. 若finally块内有return语句，则以finally块内的return为准
+          说明：如果try 或者 catch内也有return 其实是先执行了try 或者 catch代码块中的return语句的，
+               但是由于finally的机制，执行完try或者catch内的代码以后并不会立刻结束函数，还会执行finally块代码，
+               若finally也有return语句，则会覆盖try块或者catch块中的return语句
+               
+      4.若finally代码块中有return语句，则屏蔽cath代码块中抛出的异常
+          例如：
+              public static int getResult1() {
+                  int i = 0;
+                  try {
+                      int c = 2 / i;
+                  } catch (Exception e) {
+                      i = 10;
+                      throw e;
+                  } finally {
+                      i = 20;
+                      return i;
+                  }
+              }
+
+          说明：调用该函数不会发生异常，因为catch代码块内的throw e 语句抛出的异常被 finally代码块的return语句屏蔽了      
