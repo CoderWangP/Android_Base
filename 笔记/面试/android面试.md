@@ -155,7 +155,17 @@
 ## 13. 事件分发
 ## 14. 图片加载框架，Glide缓存原理，Lru cache(Least Recently Used :近期最少使用的)算法
 	LruCache:近期最少使用
-	
+	构造方法：public LruCache(int maxSize) {
+			if (maxSize <= 0) {
+			    throw new IllegalArgumentException("maxSize <= 0");
+			}
+			this.maxSize = maxSize;
+			this.map = new LinkedHashMap<K, V>(0, 0.75f, true);
+	        }
+	原理：内部维持了一个LinkedHashMap,而且创建(new LinkedHashMap<K, V>(0, 0.75f, true)，accessOrder为true)
+	的是一个按照访问顺序存储 的LinkedHashMap，这样每次访问的时候，比如get方法，就会把get到的元素从原来的链表中删除，
+	然后重新插入到链表的尾部(尾部表示最新加入的)，put元素的时候，会调用trimToSize,如果发现加入当前元素之后，超过了设置的最大size，
+	就会从链表的头部开始删除，直到小于最大size,这样就保持了LinkedHashMap的大小保持在最大size以下，达到缓存的效果，防止oom。
 ## 15. EventBus
        1.处理消息的4种线程模式：posting,main,background,asyc
         	posting：默认的线程模式，与发消息是在同一个线程中
