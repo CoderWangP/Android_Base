@@ -154,6 +154,8 @@
 		2.setSaveEnabled(true)
 ## 13. 事件分发
 ## 14. 图片加载框架，Glide缓存原理，Lru cache(Least Recently Used :近期最少使用的)算法
+	LruCache:近期最少使用
+	
 ## 15. EventBus
        1.处理消息的4种线程模式：posting,main,background,asyc
         	posting：默认的线程模式，与发消息是在同一个线程中
