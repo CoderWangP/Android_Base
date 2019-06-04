@@ -89,12 +89,12 @@
 	       而sdk < 13,android:configChanges="keyboardHidden|orientation"
 	    3、配置了configChanges，生命周期(从Activity创建开始)：
 	      onCreate -> onStart -> onResume -> onConfigurationChanged
-     3.onRestart调用时机
+    3.onRestart调用时机
        1.从其他页面返回onRestart->onStart->onResume
        2.按下Home键
        3.跳转到其他应用，再从其他应用返回
-     4.onSaveInstanceState调用时机
-     	1.非用户主动明确结束(主动结束：按back键，定义click方法，finish)都会调用onSaveInsatanceState
+    4.onSaveInstanceState调用时机
+	1.非用户主动明确结束(主动结束：按back键，定义click方法，finish)都会调用onSaveInsatanceState
 		1.按home键
 		2.屏幕旋转
 		3.内存不足
