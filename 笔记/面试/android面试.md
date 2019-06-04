@@ -94,12 +94,12 @@
        2.按下Home键
        3.跳转到其他应用，再从其他应用返回
     4.onSaveInstanceState调用时机
-	1.非用户主动明确结束(主动结束：按back键，定义click方法，finish)都会调用onSaveInsatanceState
-		1.按home键
-		2.屏幕旋转
-		3.内存不足
-		4.启动另一个Activity
-	2.这个方法的调用时机是在onStop之前，但是与onPause没有既定的时序关系	
+		1.非用户主动明确结束(主动结束：按back键，定义click方法，finish)都会调用onSaveInsatanceState
+			1.按home键
+			2.屏幕旋转
+			3.内存不足
+			4.启动另一个Activity
+		2.这个方法的调用时机是在onStop之前，但是与onPause没有既定的时序关系	
 ## 6.Activity启动模式：
 	1. standard:每一次启动，都会生成一个新的实例，放入栈顶中
 	2. singleTop:通过singelTop启动Activity时，如果发现有需要启动的实例正在栈顶，责直接重用，否则生成新的实例
