@@ -59,7 +59,7 @@
             当对象和它所引用的对象一起拷贝时即发生深拷贝。
             深拷贝相比于浅拷贝速度较慢并且花销较大。
   ### 6.switch中能否使用string做参数
-      jdk1.6，只能用int，
+      jdk1.6，只能用int,short,char,byte
       jdk1.7之后，可以用String
   ### 7.线程
       1.sleep，wait区别
