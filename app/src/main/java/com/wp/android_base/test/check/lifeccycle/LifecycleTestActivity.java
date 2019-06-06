@@ -64,6 +64,7 @@ public class LifecycleTestActivity extends BaseActivity{
     }
 
     public void showDialog(View view){
+        //建造者模式
         new AlertDialog.Builder(this)
                 .setTitle("这是一个弹窗")
                 .setIcon(R.drawable.glide_test_dog).show();
