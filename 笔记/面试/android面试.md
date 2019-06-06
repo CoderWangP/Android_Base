@@ -79,16 +79,27 @@
     Fragment:onAttach->onCreate->onCreateView->onActivityCreated->onStart->onResume->onPause->onStop->onDestoryView->onDestory->onDetach
     …->onDestoryView ->onCreateView->…
     1.A启动B:
-    A:onPause->B:onCreate->B:onStart->B:onResume->A:onSaveInstanceState->A:onStop
-    Activity在屏幕旋转时的生命周期:
-    onCreate -> onStart -> onResume -> onPause -> onSaveInstanceState -> onStop >onDestory  -> onCreate -> onStart -> onRestoreInstanceState -> onResume
-    1、会走整个生命周期方法，而且会调用onSaveInstance和onRestoreInstancceState方法
-    2、sdk版本 > 13,后，要想activity横竖屏切换，不重新创建，需要在Manifest的注册的Activity里添加
-       android:configChanges="keyboardHidden|orientation|screenSize"
-       而sdk < 13,android:configChanges="keyboardHidden|orientation"
-    3、配置了configChanges，生命周期(从Activity创建开始)：
-      onCreate -> onStart -> onResume -> onConfigurationChanged
-
+    	A:onPause->B:onCreate->B:onStart->B:onResume->A:onSaveInstanceState->A:onStop
+    2.Activity在屏幕旋转时的生命周期:
+	    onCreate -> onStart -> onResume -> onPause -> onSaveInstanceState -> onStop >onDestory  
+	    -> onCreate -> onStart - > onRestoreInstanceState -> onResume
+	    1、会走整个生命周期方法，而且会调用onSaveInstance和onRestoreInstancceState方法
+	    2、sdk版本 > 13,后，要想activity横竖屏切换，不重新创建，需要在Manifest的注册的Activity里添加
+	       android:configChanges="keyboardHidden|orientation|screenSize"
+	       而sdk < 13,android:configChanges="keyboardHidden|orientation"
+	    3、配置了configChanges，生命周期(从Activity创建开始)：
+	      onCreate -> onStart -> onResume -> onConfigurationChanged
+    3.onRestart调用时机
+       1.从其他页面返回onRestart->onStart->onResume
+       2.按下Home键
+       3.跳转到其他应用，再从其他应用返回
+    4.onSaveInstanceState调用时机
+		1.非用户主动明确结束(主动结束：按back键，定义click方法，finish)都会调用onSaveInsatanceState
+			1.按home键
+			2.屏幕旋转
+			3.内存不足
+			4.启动另一个Activity
+		2.这个方法的调用时机是在onStop之前，但是与onPause没有既定的时序关系	
 ## 6.Activity启动模式：
 	1. standard:每一次启动，都会生成一个新的实例，放入栈顶中
 	2. singleTop:通过singelTop启动Activity时，如果发现有需要启动的实例正在栈顶，责直接重用，否则生成新的实例
@@ -143,6 +154,18 @@
 		2.setSaveEnabled(true)
 ## 13. 事件分发
 ## 14. 图片加载框架，Glide缓存原理，Lru cache(Least Recently Used :近期最少使用的)算法
+	LruCache:近期最少使用
+	构造方法：public LruCache(int maxSize) {
+			if (maxSize <= 0) {
+			    throw new IllegalArgumentException("maxSize <= 0");
+			}
+			this.maxSize = maxSize;
+			this.map = new LinkedHashMap<K, V>(0, 0.75f, true);
+	        }
+	原理：内部维持了一个LinkedHashMap,而且创建(new LinkedHashMap<K, V>(0, 0.75f, true)，accessOrder为true)
+	的是一个按照访问顺序存储 的LinkedHashMap，这样每次访问的时候，比如get方法，就会把get到的元素从原来的链表中删除，
+	然后重新插入到链表的尾部(尾部表示最新加入的)，put元素的时候，会调用trimToSize,如果发现加入当前元素之后，超过了设置的最大size，
+	就会从链表的头部开始删除，直到小于最大size,这样就保持了LinkedHashMap的大小保持在最大size以下，达到缓存的效果，防止oom。
 ## 15. EventBus
        1.处理消息的4种线程模式：posting,main,background,asyc
         	posting：默认的线程模式，与发消息是在同一个线程中
@@ -215,7 +238,14 @@
        4.PhantomReference（虚引用）:
        一个只被虚引用持有的对象可能会在任何时候被GC回收。虚引用对对象的生存周期完全没有影响，
        也无法通过虚引用来获取对象实例，仅仅能在对象被回收时，
-       得到一个系统通知（只能通过是否被加入到ReferenceQueue来判断是否被GC，这也是唯一判断对象是否被GC的途径）。
+       得到一个系统通知（只能通过是否被加入到ReferenceQueue来判断是否被GC，这也是唯一判断对象是否被GC的途径）
+       
+       虚引用必须和引用队列(ReferenceQueue)联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，
+       就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。
+            String str = new String("abc");
+	    ReferenceQueue queue = new ReferenceQueue();
+	    // 创建虚引用，要求必须与一个引用队列关联
+	    PhantomReference pr = new PhantomReference(str, queue);
 ## 21. 注解vs枚举
 ## 22. 常用布局
 	LinearLayout,RelativeLayout,FrameLayout,AbsoluteLayout,ConstraintLayout
@@ -273,7 +303,7 @@
 	一,非用户主动明确结束（按back键，自定义click方法调用finish）时都会调用onSaveInstanceState：
 		1.屏幕旋转
 		2.按HOME键
-		3.内存不足
+		3.内存不足，被回收
 		4.从一个activity启动另一个activity
 	二,这个方法的调用时机是在onStop前，但是它和onPause没有既定的时序关系
 ## 25 .View的生命周期
