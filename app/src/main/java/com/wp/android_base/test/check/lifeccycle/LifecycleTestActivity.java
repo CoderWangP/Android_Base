@@ -1,13 +1,17 @@
 package com.wp.android_base.test.check.lifeccycle;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
+import android.util.LruCache;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
@@ -16,7 +20,12 @@ import com.wp.android_base.model.gituser.GitUser;
 import com.wp.android_base.test.base.dialog.MyDialogFragment;
 import com.wp.android_base.test.view.CustomViewStateActivity;
 
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 
 /**
  * Created by wangpeng on 2018/10/29.
@@ -51,7 +60,7 @@ public class LifecycleTestActivity extends BaseActivity{
 
     public void forward2Another(View v){
         startActivity(new Intent(this, CustomViewStateActivity.class));
-        getValue();
+        Logger.e(TAG,"getValue=" + getValue());
     }
 
     public void showDialog(View view){
@@ -61,14 +70,17 @@ public class LifecycleTestActivity extends BaseActivity{
     }
 
     public int getValue(){
+        int i=-1;
         try {
            throw new RuntimeException("抛出异常");
         }catch (Exception e){
             Logger.e(TAG,"catch");
-            Logger.e(TAG,"return");
-            return -1;
+            i = 10;
+            throw new RuntimeException("catch e");
         }finally {
             Logger.e(TAG,"finally");
+            i = -3;
+            return i;
         }
     }
 
@@ -82,6 +94,12 @@ public class LifecycleTestActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         Logger.e(TAG,"onCreate");
         GitUser gitUser = new GitUser();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Logger.e(TAG,"onRestart");
     }
 
     @Override

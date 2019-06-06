@@ -116,7 +116,7 @@
 
 
         <activity android:name=".demo.EditTextFocusActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <activity android:name=".demo.livedata.LiveDataActivity"
             android:screenOrientation="portrait"/>
@@ -128,6 +128,7 @@
             android:screenOrientation="sensor"/>
         <activity android:name=".test.java.clone.TestCloneActivity" />
         <activity android:name=".test.java.JavaActivity" />
+        <activity android:name=".test.java.ThreadPoolActivity" />
 
         <service android:name=".service.MyService"
             android:exported="false"/>
