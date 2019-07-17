@@ -77,7 +77,8 @@ public class ApiException {
             return ex;
         } else {
             ex = new ResponseThrowable(e, ERROR.UNKNOWN);
-            ex.message = AppModule.provideApplication().getString(R.string.unknown_error);
+//            ex.message = AppModule.provideApplication().getString(R.string.unknown_error);
+            ex.message = e.getMessage();
             return ex;
         }
     }
@@ -146,7 +147,7 @@ public class ApiException {
     }
 
     /**
-     * ServerException发生后，将自动转换为ResponeThrowable 返回在onError(e)中
+     * ServerException发生后，将自动转换为ResponseThrowable 返回在onError(e)中
      */
     class ServerException extends RuntimeException {
         int code;

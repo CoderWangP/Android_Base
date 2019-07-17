@@ -129,6 +129,7 @@
         <activity android:name=".test.java.clone.TestCloneActivity" />
         <activity android:name=".test.java.JavaActivity" />
         <activity android:name=".test.java.ThreadPoolActivity" />
+        <activity android:name=".test.base.ToastActivity" />
 
         <service android:name=".service.MyService"
             android:exported="false"/>

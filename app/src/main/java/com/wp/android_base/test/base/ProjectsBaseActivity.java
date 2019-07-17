@@ -79,4 +79,8 @@ public class ProjectsBaseActivity extends BaseActivity{
     public void mainTab(View v){
         startActivity(new Intent(this, MainTabActivity.class));
     }
+
+    public void toast(View v){
+        startActivity(new Intent(this,ToastActivity.class));
+    }
 }

@@ -10,6 +10,8 @@ import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wp.android_base.BuildConfig;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.BaseFragment;
@@ -147,19 +149,13 @@ public class HttpRequestManager implements CodeConstant {
         if (lifecycleProvider == null) {
             throw new IllegalArgumentException("LifecycleProvider can not be null");
         }
-        if (lifecycleProvider instanceof BaseActivity) {
-//            BaseActivity baseActivity = (BaseActivity) lifecycleProvider;
+        if (lifecycleProvider instanceof RxAppCompatActivity) {
             return lifecycleProvider.bindUntilEvent(ActivityEvent.DESTROY);
         }
-        if (lifecycleProvider instanceof BaseFragment) {
-//            BaseFragment baseFragment = (BaseFragment) lifecycleProvider;
+        if (lifecycleProvider instanceof RxFragment) {
             return lifecycleProvider.bindUntilEvent(FragmentEvent.DESTROY);
         }
-        if (lifecycleProvider instanceof BaseDialog) {
-//            BaseDialog baseDialog = (BaseDialog) lifecycleProvider;
-            return lifecycleProvider.bindUntilEvent(FragmentEvent.DESTROY);
-        }
-        throw new IllegalArgumentException("LifecycleProvider must be ? extends (BaseActivity,BaseFragment,BaseDialog)");
+        throw new IllegalArgumentException("LifecycleProvider must be ? extends (RxAppCompatActivity,RxFragment)");
     }
 
 

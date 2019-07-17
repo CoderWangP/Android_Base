@@ -1,12 +1,18 @@
 package com.wp.android_base.test.tab;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.tab.BaseTabFragment;
 import com.wp.android_base.base.tab.TabFragmentsAdapter;
+import com.wp.android_base.base.tab.model.TabBean;
+import com.wp.android_base.base.utils.ScreenUtil;
 import com.wp.android_base.base.widget.tab.TabWidget;
 
 import java.util.ArrayList;
@@ -47,54 +53,56 @@ public class TabWidgetActivity extends BaseActivity {
     protected void initializeView() {
         super.initializeView();
 
-        List<String> tabTitles = Arrays.asList(new String[]{"tab1", "tab222222222222", "tab333", "tab4", "tab55555", "tab6", "tab7", "tab8"});
+//        List<String> tabTitles = Arrays.asList(new String[]{"tab1", "tab222222222222", "tab333", "tab4", "tab55555", "tab6", "tab7", "tab8"});
 
-//        List<String> tabTitles = Arrays.asList(new String[]{"tab1", "tab22222222222222222222222"});
-
-    /*    List<BaseTabFragment> fragments = new ArrayList<>();
+        List<String> tabTitles = Arrays.asList(new String[]{"tab1", "tab2","tab33333333"});
+        List<TabBean> tabBeans =new ArrayList<>();
+        List<BaseTabFragment> fragments = new ArrayList<>();
         for (int i = 0; i < tabTitles.size(); i++) {
             TabFragment tabFragment = new TabFragment();
             Bundle bundle = new Bundle();
             bundle.putString("title", tabTitles.get(i));
+            TabBean tabBean = new TabBean(tabTitles.get(i));
+            tabBeans.add(tabBean);
             tabFragment.setArguments(bundle);
             fragments.add(tabFragment);
         }
-        TabFragmentsAdapter tabFragmentsAdapter = new TabFragmentsAdapter(getSupportFragmentManager(), fragments);
-        TabWidget tabLayout = findViewById(R.id.tab_layout);
-*//*        LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
+        TabFragmentsAdapter tabFragmentsAdapter = new TabFragmentsAdapter(getSupportFragmentManager(), fragments,tabBeans);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+/*        LinearLayout linearLayout = (LinearLayout) tabLayout.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         linearLayout.setDividerDrawable(ContextCompat.getDrawable(this,R.drawable.vertical_gray_line));
-        linearLayout.setDividerPadding(ScreenUtil.dp2px(15));*//*
+        linearLayout.setDividerPadding(ScreenUtil.dp2px(15));*/
         ViewPager vpWithTab = findViewById(R.id.vp_with_tab);
         vpWithTab.setOffscreenPageLimit(2);
         vpWithTab.setAdapter(tabFragmentsAdapter);
-        tabLayout.setupWithViewPager(vpWithTab);*/
+        tabLayout.setupWithViewPager(vpWithTab);
 
-/*        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(R.layout.view_custom_main_tab);
             if (i == 0) {
                 tab.getCustomView().setSelected(true);
             }
-            TextView txTab = tab.getCustomView().findViewById(R.id.tx_custom_tab_position);
+            TextView txTab = tab.getCustomView().findViewById(R.id.tx_tab_title);
             txTab.setText(tabTitles.get(i));
         }
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                tab.getCustomView().findViewById(R.id.tx_custom_tab_position).setSelected(true);
+                tab.getCustomView().findViewById(R.id.tx_tab_title).setSelected(true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                tab.getCustomView().findViewById(R.id.tx_custom_tab_position).setSelected(false);
+                tab.getCustomView().findViewById(R.id.tx_tab_title).setSelected(false);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-        });*/
+        });
     }
 }

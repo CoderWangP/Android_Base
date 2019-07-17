@@ -31,18 +31,19 @@
 
             </LinearLayout>
 
-            <com.wp.android_base.base.widget.tab.TabWidget
+            <android.support.design.widget.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 app:tabPadding="0dp"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 android:background="#fafafa"
                 app:tabGravity="fill"
                 app:tabPaddingStart="0dp"
                 app:tabPaddingEnd="0dp"
                 app:tabMaxWidth="0dp"
-                app:right_margin="40dp"/>
+                app:right_margin="40dp"
+                app:tabIndicatorFullWidth="false"/>
 
         </android.support.design.widget.AppBarLayout>
 

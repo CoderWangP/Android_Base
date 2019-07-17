@@ -22,7 +22,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guide_half_height"
         android:layout_marginBottom="20dp"
         android:inputType="textEmailAddress"
-        tools:ignore="LabelFor" />
+        tools:ignore="LabelFor"
+        android:digits="123456789"/>
 
 
     <EditText

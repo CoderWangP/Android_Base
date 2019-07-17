@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wp.android_base.LoginActivity;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.BaseFragment;
@@ -29,11 +31,11 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
 
     private Application mApplication;
 
-    protected BaseHttpResponseObserver(LifecycleProvider lifecycleProvider) {
+    BaseHttpResponseObserver(LifecycleProvider lifecycleProvider) {
         this.mLifecycleProvider = lifecycleProvider;
     }
 
-    protected BaseHttpResponseObserver(Application application) {
+    BaseHttpResponseObserver(Application application) {
         this.mApplication = application;
     }
 
@@ -46,7 +48,7 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
     public void onNext(T t) {
         if (mApplication != null) {
             onSuccess(t);
-        } else if (mLifecycleProvider != null && mApplication == null) {
+        } else if (mLifecycleProvider != null) {
             onLifecycleProviderAlive(t);
         }
     }
@@ -59,14 +61,14 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
             ApiException.ResponseThrowable responseThrowable = ApiException.handleException(e);
             Logger.d(TAG, responseThrowable.getMessage());
             onError(responseThrowable);
-        } else if (mApplication == null && mLifecycleProvider != null) {
+        } else if (mLifecycleProvider != null) {
             onLifecycleProviderAlive(e);
         }
     }
 
     private void onLifecycleProviderAlive(T t) {
         if (!isLifecycleProviderAlive()) {
-            Logger.e("LifecycleProvider destory");
+            Logger.e("LifecycleProvider destroy");
             return;
         }
         onSuccess(t);
@@ -75,13 +77,16 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
 
     private void onLifecycleProviderAlive(Throwable e) {
         if (!isLifecycleProviderAlive()) {
-            Logger.e("LifecycleProvider destory");
+            Logger.e("LifecycleProvider destroy");
             return;
         }
         ApiException.ResponseThrowable responseThrowable = ApiException.handleException(e);
-        Logger.d(TAG, responseThrowable.getMessage());
-        onError(responseThrowable);
-        onAuthError(responseThrowable);
+        Logger.e(TAG, responseThrowable.code,responseThrowable.getMessage());
+        if(responseThrowable.code == ApiException.UNAUTHORIZED){
+            onAuthError(responseThrowable);
+        }else{
+            onError(responseThrowable);
+        }
     }
 
     @Override
@@ -98,17 +103,13 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
     }
 
     private boolean isLifecycleProviderAlive() {
-        if (mLifecycleProvider instanceof BaseFragment) {
-            BaseFragment baseFragment = (BaseFragment) mLifecycleProvider;
-            return CheckLifecycleUtil.isAlive(baseFragment);
-        }
-        if (mLifecycleProvider instanceof BaseActivity) {
-            BaseActivity baseActivity = (BaseActivity) mLifecycleProvider;
+        if (mLifecycleProvider instanceof RxAppCompatActivity) {
+            RxAppCompatActivity baseActivity = (RxAppCompatActivity) mLifecycleProvider;
             return CheckLifecycleUtil.isAlive(baseActivity);
         }
-        if (mLifecycleProvider instanceof BaseDialog) {
-            BaseDialog baseDialog = (BaseDialog) mLifecycleProvider;
-            return CheckLifecycleUtil.isAlive(baseDialog);
+        if (mLifecycleProvider instanceof RxFragment) {
+            RxFragment baseFragment = (RxFragment) mLifecycleProvider;
+            return CheckLifecycleUtil.isAlive(baseFragment);
         }
         return false;
     }
@@ -129,7 +130,7 @@ public abstract class BaseHttpResponseObserver<T> implements Observer<T> {
             if (mLifecycleProvider instanceof BaseDialog) {
                 context = ((BaseDialog) mLifecycleProvider).getActivity();
             }
-        }else if(mLifecycleProvider == null && mApplication != null){
+        }else if(mLifecycleProvider == null){
             context = mApplication;
         }
 
