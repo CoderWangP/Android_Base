@@ -159,7 +159,7 @@
                但是由于finally的机制，执行完try或者catch内的代码以后并不会立刻结束函数，还会执行finally块代码，
                若finally也有return语句，则会覆盖try块或者catch块中的return语句
                
-      4.若finally代码块中有return语句，则屏蔽cath代码块中抛出的异常
+      4.若finally代码块中有return语句，则屏蔽catch代码块中抛出的异常
           例如：
               public static int getResult1() {
                   int i = 0;
