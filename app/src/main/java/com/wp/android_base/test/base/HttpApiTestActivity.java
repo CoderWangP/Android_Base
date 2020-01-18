@@ -1,17 +1,25 @@
 package com.wp.android_base.test.base;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.wp.android_base.Constants;
 import com.wp.android_base.LoginActivity;
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
+import com.wp.android_base.base.SimpleObserver;
 import com.wp.android_base.base.http.ApiException;
 import com.wp.android_base.base.http.CodeConstant;
 import com.wp.android_base.base.http.HttpRequestManager;
-import com.wp.android_base.api.gituser.GitUserApi;
+import com.wp.android_base.api.gituser.Api;
 import com.wp.android_base.base.http.HttpResult;
 import com.wp.android_base.api.gituser.GitUserApiImpl;
+import com.wp.android_base.base.utils.AppModule;
+import com.wp.android_base.base.utils.Sp;
+import com.wp.android_base.base.utils.ToastUtil;
+import com.wp.android_base.model.Balance;
+import com.wp.android_base.model.TokenItem;
 import com.wp.android_base.model.gituser.GitUser;
 import com.wp.android_base.base.utils.log.Logger;
 
@@ -36,10 +44,10 @@ public class HttpApiTestActivity extends BaseActivity {
 
         mTxClose = findViewById(R.id.tx_close);
 
-        GitUserApiImpl.testApiLifecycle(this).subscribe(new HttpRequestManager.SimpleObserver<HttpResult<GitUser>>(this) {
+/*        GitUserApiImpl.testApiLifecycle(this).subscribe(new HttpRequestManager.SimpleObserver<HttpResult<GitUser>>(this) {
             @Override
             protected void onSuccess(HttpResult<GitUser> httpResult) {
-                if(httpResult.getCode() == CodeConstant.CODE_UNAUTHORIZED){
+                if (httpResult.getCode() == CodeConstant.CODE_UNAUTHORIZED) {
                     LoginActivity.forward2Login(HttpApiTestActivity.this);
                 }
             }
@@ -65,7 +73,7 @@ public class HttpApiTestActivity extends BaseActivity {
 
 
         HttpRequestManager
-                .createApi(GitUserApi.class)
+                .createApi(Api.class)
                 .testNullApiImpl("octocat")
                 .compose(HttpRequestManager.createDefaultTransformer(this))
                 .subscribe(new HttpRequestManager.SimpleObserver<HttpResult>(this) {
@@ -78,11 +86,40 @@ public class HttpApiTestActivity extends BaseActivity {
                     protected void onError(ApiException.ResponseThrowable responseThrowable) {
 
                     }
-                });
+                });*/
     }
 
     public void close(View v) {
         finish();
+    }
+
+    @Override
+    protected void requestDatas() {
+        super.requestDatas();
+
+        HttpRequestManager
+                .createApi(Api.class)
+                .getBalance(getXWID(), "http://119.23.10.138:1880/res/bch/wallets/balance")
+                .compose(HttpRequestManager.createDefaultTransformer(this))
+                .subscribe(new HttpRequestManager.SimpleObserver<HttpResult<Balance>>(this) {
+                    @Override
+                    protected void onSuccess(HttpResult<Balance> balanceHttpResult) {
+
+                    }
+
+                    @Override
+                    protected void onError(ApiException.ResponseThrowable responseThrowable) {
+
+                    }
+                });
+    }
+
+    private String getXWID(){
+        String xwid = Sp.from(AppModule.provideContext(), Constants.SP_CONFIG).read().getString("wid",null);
+        if(TextUtils.isEmpty(xwid)){
+            xwid = "";
+        }
+        return xwid;
     }
 
     @Override

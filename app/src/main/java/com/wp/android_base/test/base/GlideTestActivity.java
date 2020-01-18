@@ -37,6 +37,6 @@ public class GlideTestActivity extends BaseActivity{
         GlideImageLoader.loadImageWithRoundCorner(this,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2432163883,4023441733&fm=27&gp=0.jpg",imageRoundCorner,ScreenUtil.dp2px(20));
 
         ImageView imageRound = findViewById(R.id.image_round);
-        GlideImageLoader.loadImageWithCircle(this,"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1567957104,3107114943&fm=27&gp=0.jpg",imageRound);
+        GlideImageLoader.loadImageWithCircle(this,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2432163883,4023441733&fm=27&gp=0.jpg",imageRound);
     }
 }

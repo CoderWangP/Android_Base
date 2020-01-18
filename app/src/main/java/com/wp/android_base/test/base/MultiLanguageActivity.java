@@ -51,7 +51,7 @@ public class MultiLanguageActivity extends BaseActivity{
                         language = LanguageDef.ENGLISH;
                         break;
                 }
-                LanguageUtil.saveCurrentAppLang(MultiLanguageActivity.this,language);
+                LanguageUtil.saveCurrentAppLang(language);
                 recreate();
             }
         });
@@ -65,7 +65,7 @@ public class MultiLanguageActivity extends BaseActivity{
 
     private void setLanguage(){
         String language = null;
-        switch (LanguageUtil.getCurrentAppLangByStr(this)){
+        switch (LanguageUtil.getCurrentAppLangByStr()){
             case LanguageDef.SIMPLE_CHINESE:
                 mIndex = 0;
                 language = "中文简体";

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.text.TextUtils;
 
 import java.io.BufferedReader;
@@ -19,62 +20,150 @@ import java.io.IOException;
 
 public class PackageUtil {
 
-    /**
-     * 版本名称 versionName
-     * @param context
-     * @return
-     */
-    public static String getVersionName(Context context){
-        PackageManager manager = context.getPackageManager();
+    private static final String TAG = "PackageUtil";
+
+    private static String sVersionName = "";
+    private static String sVersionCode = "";
+    private static String sAppName = "";
+    private static String sPackageName = "";
+
+    public static String getVersionName(){
+        if (!TextUtil.isEmpty(sVersionName)) {
+            return sVersionName;
+        }
         try {
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            return info.versionName;
+            Context context = AppModule.provideContext();
+            if(context != null){
+                PackageManager manager = context.getPackageManager();
+                PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+                sVersionName =  info.versionName;
+                return sVersionName;
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return null;
+        return "";
     }
 
     /**
-     * 版本号 versionCode
-     * @param context
+     * 获取apk文件的版本信息
+     * @param apkPath
      * @return
      */
-    public static int getVersionCode(Context context){
-        PackageManager manager = context.getPackageManager();
+    public static String getVersionName(String apkPath){
         try {
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            return info.versionCode;
+            Context context = AppModule.provideContext();
+            if(context != null){
+                PackageManager manager = context.getPackageManager();
+                PackageInfo info = manager.getPackageArchiveInfo(apkPath,PackageManager.GET_ACTIVITIES);
+                if(info != null){
+                    return info.versionName;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String getVersionCode(){
+        if (!TextUtil.isEmpty(sVersionCode)) {
+            return sVersionCode;
+        }
+        try {
+            Context context = AppModule.provideContext();
+            if(context != null){
+                PackageManager manager = context.getPackageManager();
+                PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+                sVersionCode = String.valueOf(info.versionCode);
+                return sVersionCode;
+            }
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return -1;
+        return "";
     }
 
     /**
-     * 包名
-     * @param context
+     * 获取apk文件的版本信息
+     * @param apkPath
      * @return
      */
-    public static String getPackageName(Context context) {
-        return context.getPackageName();
-    }
-
-    /**
-     * 应用名
-     * @param context
-     * @return
-     */
-    public static String getApplicationName(Context context) {
-        String appName = null;
-        PackageManager packageManager = context.getPackageManager();;
+    public static String getVersionCode(String apkPath){
         try {
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(context.getPackageName(), 0);
-            appName = (String) packageManager.getApplicationLabel(applicationInfo);
-        } catch (PackageManager.NameNotFoundException e) {
+            Context context = AppModule.provideContext();
+            if(context != null){
+                PackageManager manager = context.getPackageManager();
+                PackageInfo info = manager.getPackageArchiveInfo(apkPath, PackageManager.GET_ACTIVITIES);
+                if (Build.VERSION.SDK_INT >= 28) {
+                    return String.valueOf(info.getLongVersionCode());
+                }else{
+                    return String.valueOf(info.versionCode);
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return appName;
+        return "";
+    }
+
+    /**
+     * 获取应用名称
+     * @return
+     */
+    public static String getAppName() {
+        if(!TextUtil.isEmpty(sAppName)){
+            return sAppName;
+        }
+        PackageManager packageManager = null;
+        ApplicationInfo applicationInfo = null;
+        String packageName = null;
+        try {
+            Context context = AppModule.provideContext();
+            if(context != null){
+                packageManager = context.getPackageManager();
+                packageName = context.getPackageName();
+                if(packageManager != null){
+                    applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+                }
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            applicationInfo = null;
+        }
+        if(applicationInfo != null){
+            sAppName = (String) packageManager.getApplicationLabel(applicationInfo);
+        }
+        return sAppName;
+    }
+
+    /**
+     * 获取包名
+     * @return
+     */
+    public static String getPackageName() {
+        if(!TextUtil.isEmpty(sPackageName)){
+            return sPackageName;
+        }
+        sPackageName = AppModule.provideContext().getPackageName();
+        return sPackageName;
+    }
+
+    /**
+     * 获取apk文件的包名
+     * @return
+     */
+    public static String getPackageName(String apkPath) {
+        try {
+            Context context = AppModule.provideContext();
+            if(context != null){
+                PackageManager manager = context.getPackageManager();
+                PackageInfo info = manager.getPackageArchiveInfo(apkPath, PackageManager.GET_ACTIVITIES);
+                return info.packageName;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**
@@ -110,11 +199,10 @@ public class PackageUtil {
 
     /**
      * 是否是当前应用进程
-     * @param context
      * @return
      */
-    public static boolean isAppProcess(Context context){
-        String packageName = getPackageName(context);
+    public static boolean isAppProcess(){
+        String packageName = getPackageName();
         String processName = getProcessName(android.os.Process.myPid());
         return !TextUtils.isEmpty(processName) && processName.equals(packageName);
     }

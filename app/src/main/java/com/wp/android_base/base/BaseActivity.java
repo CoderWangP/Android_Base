@@ -28,7 +28,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         //适配多语言
-        Locale newLocale = LanguageUtil.getCurrentAppLangByLocale(newBase);
+        Locale newLocale = LanguageUtil.getCurrentAppLangByLocale();
         super.attachBaseContext(ContextWrapper.wrap(newBase, newLocale));
     }
 

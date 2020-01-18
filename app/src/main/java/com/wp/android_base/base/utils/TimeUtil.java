@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Created by wangpeng on 2018/1/6.
@@ -31,6 +32,15 @@ public class TimeUtil {
             pattern = DEFAULT_PATTERN;
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        return simpleDateFormat.format(timeSeconds * 1000);
+    }
+
+    public static String formatLong2Time(long timeSeconds, String pattern, TimeZone timeZone) {
+        if (TextUtil.isEmpty(pattern)) {
+            pattern = DEFAULT_PATTERN;
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern,Locale.getDefault());
+        simpleDateFormat.setTimeZone(timeZone);
         return simpleDateFormat.format(timeSeconds * 1000);
     }
 

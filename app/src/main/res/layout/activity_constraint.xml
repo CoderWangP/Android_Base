@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,7 +13,9 @@
             android:id="@+id/btn_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="A"
+            android:maxLines="1"
+            android:text="btn_1(11111111111111)"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,23 +25,79 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="start"
-            android:text="aaajsjfjakjdkjgkjdkjgkdjgkdjkgjjgkgjdjgkdjkgdjgkdjgkgjdkgjkdjgkjdgkdjgkdjgkdgjdkjgdkgj"
-            app:layout_constrainedWidth="true"
+            android:text="btn_2 ->aaajsjfj0000000000000000000022222222"
+            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintLeft_toRightOf="@+id/btn_1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_1" />
-
+            app:layout_constraintTop_toBottomOf="@+id/ll_test"
+            app:layout_constrainedWidth="true"/>
 
         <Button
             android:id="@+id/btn_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="宽度与窗口宽度百分比关系"
+            android:text="btn_3 ->宽度与窗口宽度百分比关系"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_2"
             app:layout_constraintWidth_percent="0.5" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/ll_test"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btn_1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00FF00"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="这是一个自动缩放aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa111111111111end"
+                android:textColor="#FF0000"
+                android:textSize="30sp"
+                app:autoSizeMaxTextSize="30sp"
+                app:autoSizeMinTextSize="20sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tx_complete_display"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintHorizontal_bias="0"
+                android:gravity="start"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tx_complete_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0000FF"
+                android:maxLines="1"
+                android:text="完全展示大小的TextView"
+                android:textColor="#FF0000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/tx_auto"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guide_dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="100dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="guide line use dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guide_dp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_test" />
 
 
         <Button
@@ -66,22 +125,22 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_4"
-            tools:text="H,16:1,约束高度，W:H为16：1,高度按照宽高比16:1来计算，而宽度为0dp，match_constraint,即是match_parent"
-            tools:ignore="ContentDescription" />
+            tools:ignore="ContentDescription"
+            tools:text="H,16:1,约束高度，W:H为16：1,高度按照宽高比16:1来计算，而宽度为0dp，match_constraint,即是match_parent" />
 
         <Button
             android:id="@+id/btn_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="start"
+            android:text="app:layout_constraintHorizontal_bias=0.3"
+            android:textAllCaps="false"
             app:layout_constraintHorizontal_bias="0.3"
-            app:layout_constraintTop_toBottomOf="@+id/image"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="10dp"
-            android:text="app:layout_constraintHorizontal_bias=0.3"
-            android:gravity="start"
-            android:textAllCaps="false"
-            tools:text="Horizontal_bias=0.3水平方向偏压，拉力百分比，左边0.3，右边0.7，即是该控件距离左右两个方向的间隔，适用于左右有限制的控件"/>
+            app:layout_constraintTop_toBottomOf="@+id/image"
+            tools:text="Horizontal_bias=0.3水平方向偏压，拉力百分比，左边0.3，右边0.7，即是该控件距离左右两个方向的间隔，适用于左右有限制的控件" />
 
 
         <android.support.constraint.Barrier
@@ -89,48 +148,48 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="tv_name,tv_contract"/>
+            app:constraint_referenced_ids="tv_name,tv_contract" />
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
             android:text="姓名："
-            app:layout_constraintTop_toTopOf="@+id/et_name"
             app:layout_constraintBottom_toBottomOf="@+id/et_name"
-            android:includeFontPadding="false"/>
+            app:layout_constraintTop_toTopOf="@+id/et_name" />
 
         <TextView
             android:id="@+id/tv_contract"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
             android:text="联系方式："
-            app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            app:layout_constraintTop_toTopOf="@+id/et_contract"
             app:layout_constraintBottom_toBottomOf="@+id/et_contract"
-            android:includeFontPadding="false"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:layout_constraintTop_toTopOf="@+id/et_contract" />
 
         <EditText
             android:id="@+id/et_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="请输入姓名"
-            app:layout_constraintLeft_toLeftOf="@+id/barrier"
-            app:layout_constraintTop_toBottomOf="@+id/btn_5"
             android:layout_marginTop="20dp"
+            android:background="@null"
+            android:hint="请输入姓名"
             android:includeFontPadding="false"
-            android:background="@null"/>
+            app:layout_constraintLeft_toLeftOf="@+id/barrier"
+            app:layout_constraintTop_toBottomOf="@+id/btn_5" />
 
         <EditText
             android:id="@+id/et_contract"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="请输入联系方式"
-            app:layout_constraintLeft_toLeftOf="@+id/barrier"
-            app:layout_constraintTop_toBottomOf="@+id/et_name"
             android:layout_marginTop="5dp"
+            android:background="@null"
+            android:hint="请输入联系方式"
             android:includeFontPadding="false"
-            android:background="@null"/>
+            app:layout_constraintLeft_toLeftOf="@+id/barrier"
+            app:layout_constraintTop_toBottomOf="@+id/et_name" />
 
         <android.support.constraint.Group
             android:layout_width="wrap_content"
@@ -143,9 +202,9 @@
             android:id="@+id/bt_group_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="group_A,同属于一个Group的话，可以直接通过group操作所有group成员的visible，gone"
-            app:layout_constraintTop_toBottomOf="@+id/et_contract"
-            android:layout_marginTop="20dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_contract" />
 
 
         <Button
@@ -153,7 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="group_B"
-            app:layout_constraintTop_toBottomOf="@+id/bt_group_a"/>
+            app:layout_constraintTop_toBottomOf="@+id/bt_group_a" />
 
 
         <!--一组控件它们通过一个双向的约束关系链接起来。 并且链的属性是由一条链的头结点控制的-->
@@ -161,33 +220,34 @@
             android:id="@+id/btn_chain_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/bt_group_b"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/btn_chain_2"
             android:layout_marginTop="30dp"
             android:text="chain_1"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintHorizontal_bias="0.8"/>
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_chain_2"
+            app:layout_constraintTop_toBottomOf="@+id/bt_group_b" />
 
         <Button
             android:id="@+id/btn_chain_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/btn_chain_1"
+            android:text="chain_2"
+            app:layout_constraintHorizontal_weight="3"
             app:layout_constraintLeft_toRightOf="@+id/btn_chain_1"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="chain_2"/>
+            app:layout_constraintTop_toTopOf="@+id/btn_chain_1" />
 
 
         <Button
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/btn_chain_2"
+            android:layout_marginTop="30dp"
             android:text="H,2:1,约束高度，W:H=2:1,高度按照宽高比2:1计算"
+            app:layout_constraintDimensionRatio="H,2:1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintDimensionRatio="H,2:1"
-            android:layout_marginTop="30dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/btn_chain_2" />
 
 
     </android.support.constraint.ConstraintLayout>

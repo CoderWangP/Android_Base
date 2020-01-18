@@ -93,6 +93,9 @@ public abstract class BaseDialog extends RxDialogFragment implements View.OnClic
             setWindowLayoutParams(lp);
             window.setAttributes(lp);
 
+            //全屏布局，不隐藏状态栏(整个弹窗覆盖在屏幕上)
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
+
             //设置动画
             int anim = getWindowAnimation();
             if(anim > 0){

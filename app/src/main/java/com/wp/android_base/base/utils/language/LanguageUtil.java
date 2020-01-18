@@ -21,12 +21,11 @@ public class LanguageUtil {
 
     /**
      * 返回当前语言，以Locale形式
-     * @param context
      * @return
      */
-    public static Locale getCurrentAppLangByLocale(Context context) {
+    public static Locale getCurrentAppLangByLocale() {
         Locale locale = null;
-        String language = getSavedAppLanguage(context);
+        String language = getSavedAppLanguage();
         switch (language) {
             case LanguageDef.SIMPLE_CHINESE:
                 locale = Locale.SIMPLIFIED_CHINESE;
@@ -43,29 +42,26 @@ public class LanguageUtil {
 
     /**
      * 返回当前语言，以Str形式
-     * @param context
      * @return
      */
-    public static @LanguageDef String getCurrentAppLangByStr(Context context) {
-        return getSavedAppLanguage(context);
+    public static @LanguageDef String getCurrentAppLangByStr() {
+        return getSavedAppLanguage();
     }
 
     /**
      * app内改语言时，存储当前使用的语言
-     * @param context
      * @param lang
      */
-    public static void saveCurrentAppLang(Context context,@LanguageDef String lang){
-        Sp.from(context.getApplicationContext(),SP_LANGUAGE_NAME).writer().putString(KEY_FOR_LANGUAGE,lang).apply();
+    public static void saveCurrentAppLang(@LanguageDef String lang){
+        Sp.from(AppModule.provideContext(),SP_LANGUAGE_NAME).writer().putString(KEY_FOR_LANGUAGE,lang).apply();
     }
 
     /**
      * 如果没有找到存储的Language，表示是首次进入，这时需要根据用户的手机环境来判断选择使用哪种语言
-     * @param context
      * @return
      */
-    private static @LanguageDef String getSavedAppLanguage(Context context) {
-        String language = Sp.from(context.getApplicationContext(),SP_LANGUAGE_NAME).read().getString(KEY_FOR_LANGUAGE,"none");
+    private static @LanguageDef String getSavedAppLanguage() {
+        String language = Sp.from(AppModule.provideContext(),SP_LANGUAGE_NAME).read().getString(KEY_FOR_LANGUAGE,"none");
         if("none".equals(language)){
             Locale locale = Locale.getDefault();
             String lang = locale.getLanguage();
@@ -86,21 +82,21 @@ public class LanguageUtil {
 
 
     public static boolean isChinese(){
-        String lang = getSavedAppLanguage(AppModule.provideContext());
+        String lang = getSavedAppLanguage();
         return LanguageDef.SIMPLE_CHINESE.equals(lang) || LanguageDef.TRADITIONAL_CHINESE.equals(lang);
     }
     public static boolean isSimpleChinese(){
-        String lang = getSavedAppLanguage(AppModule.provideContext());
+        String lang = getSavedAppLanguage();
         return LanguageDef.SIMPLE_CHINESE.equals(lang);
     }
 
     public static boolean isTraditionalChinese(){
-        String lang = getSavedAppLanguage(AppModule.provideContext());
+        String lang = getSavedAppLanguage();
         return LanguageDef.TRADITIONAL_CHINESE.equals(lang);
     }
 
     public static boolean isEnglish(){
-        String lang = getSavedAppLanguage(AppModule.provideContext());
+        String lang = getSavedAppLanguage();
         return LanguageDef.ENGLISH.equals(lang);
     }
 }

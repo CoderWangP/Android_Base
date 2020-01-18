@@ -29,6 +29,77 @@ public class BigDecimalUtil {
     public static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
 
 
+    public static double roundToSignificantFigures(double num, int n) {
+        if(num == 0) {
+            return 0;
+        }
+        final double d = Math.ceil(Math.log10(num < 0 ? -num: num));
+        final int power = n - (int) d;
+
+        final double magnitude = Math.pow(10, power);
+        final long shifted = Math.round(num*magnitude);
+        return shifted/magnitude;
+    }
+
+
+    /**
+     *
+     * @param value
+     * @param scale:法币两位小数
+     * @return
+     */
+    public static String formatLegal(String value, int scale) {
+        value = safeValue(value);
+        if(compare(value,"1") < 0){
+            //小于1
+            String temp = value;
+            int valueScale = getScale(value);
+            int count = 0;
+            for(int i=0;i<valueScale;i++){
+                temp = mulNoScale(temp,"10");
+                if(compare(temp,"1") >= 0){
+                    break;
+                }else{
+                    count++;
+                }
+            }
+            return setScale(value,count + scale);
+        }else{
+            return setScale(value,scale);
+        }
+    }
+
+
+    public static String mulNoScale(String value1, String value2) {
+        value1 = safeValue(value1);
+        value2 = safeValue(value2);
+        return new BigDecimal(value1).multiply(new BigDecimal(value2)).toPlainString();
+    }
+
+    /**
+     * 设置精度
+     *
+     * @param value
+     * @param scale
+     * @return
+     */
+    public static String setScale(String value, int scale) {
+        value = safeValue(value);
+        return new BigDecimal(value).setScale(scale, ROUNDING_MODE).toPlainString();
+    }
+
+    /**
+     * 获取小数位数
+     *
+     * @param value
+     * @return
+     */
+    public static int getScale(String value) {
+        value = safeValue(value);
+        return new BigDecimal(value).scale();
+    }
+
+
     /**
      * 加法
      * @param value1

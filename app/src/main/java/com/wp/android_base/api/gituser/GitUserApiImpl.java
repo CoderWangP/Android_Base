@@ -45,7 +45,7 @@ public class GitUserApiImpl {
 
 
     public static Observable<HttpResult<List<GitUser>>> getGitUser(LifecycleProvider lifecycleProvider, String user){
-        GitUserApi gitUserApi = HttpRequestManager.createApi(GitUserApi.class);
+        Api gitUserApi = HttpRequestManager.createApi(Api.class);
         return gitUserApi.getGitUser(user).compose(HttpRequestManager.createDefaultTransformer(lifecycleProvider));
     }
 }

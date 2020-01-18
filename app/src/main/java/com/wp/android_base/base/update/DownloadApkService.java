@@ -36,7 +36,9 @@ import java.io.File;
 public class DownloadApkService extends Service{
 
     public static final String DOWNLOAD_URL = "downloadUrl";
-    private String APK_NAME = PackageUtil.getApplicationName(this) + ".apk";
+    private static final String TAG = "DownloadApkService";
+
+    private String APK_NAME = PackageUtil.getAppName() + ".apk";
 
     private BroadcastReceiver mDownloadReceiver;
     private DownloadManager mDownloadManager;
@@ -111,7 +113,7 @@ public class DownloadApkService extends Service{
             DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             return downloadManager.enqueue(request);
         }catch (Exception e){
-
+            Logger.e(TAG,e.getMessage());
         }
         return mRequestDownloadId;
     }

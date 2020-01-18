@@ -13,10 +13,15 @@ import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.wp.android_base.BuildConfig;
-import com.wp.android_base.base.BaseActivity;
-import com.wp.android_base.base.BaseFragment;
+import com.wp.android_base.Constants;
+import com.wp.android_base.api.gituser.Api;
+import com.wp.android_base.base.http.interceptor.HttpHeadersInterceptor;
+import com.wp.android_base.base.http.interceptor.XWIDInterceptorNew;
+import com.wp.android_base.base.utils.AppModule;
+import com.wp.android_base.base.utils.Sp;
 import com.wp.android_base.base.utils.log.Logger;
-import com.wp.android_base.base.widget.dialog.base.BaseDialog;
+import com.wp.android_base.model.GetWidBody;
+import com.wp.android_base.model.WidData;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -27,9 +32,11 @@ import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -75,14 +82,15 @@ public class HttpRequestManager implements CodeConstant {
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
                     //添加头部
                     .addInterceptor(new HttpHeadersInterceptor())
+                    .addInterceptor(new XWIDInterceptorNew())
                     .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
             //debug下再添加一些调试的工具（日志，网络抓包）
             if (BuildConfig.DEBUG) {
-                httpClientBuilder.
-                        addInterceptor(new HttpLoggingInterceptor(message -> {
+                httpClientBuilder
+                        .addInterceptor(new HttpLoggingInterceptor(message -> {
                             if (message.startsWith("{") || message.startsWith("[")) {
                                 Logger.json(TAG, message);
                             } else {
@@ -127,12 +135,14 @@ public class HttpRequestManager implements CodeConstant {
             if (mLifecycleProvider == null && mApplication != null) {
                 return upstream
                         .doOnDispose(() -> Logger.e("doOnDispose", "Unsubscribing subscription"))
+                        .retryWhen(new MyRetryWhenHandler())
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread());
             } else {
                 return upstream
                         .doOnDispose(() -> Logger.e("doOnDispose", "Unsubscribing subscription"))
+                        .retryWhen(new MyRetryWhenHandler())
                         .compose(HttpRequestManager.bind2Lifecycle(mLifecycleProvider))
                         .subscribeOn(Schedulers.io())
                         .unsubscribeOn(Schedulers.io())
@@ -195,4 +205,38 @@ public class HttpRequestManager implements CodeConstant {
             super(application);
         }
     }
+
+
+    static class MyRetryWhenHandler implements Function<Observable<Throwable>,ObservableSource<?>> {
+        @Override
+        public ObservableSource<?> apply(Observable<Throwable> throwableObservable) throws Exception {
+
+            return throwableObservable.flatMap(new Function<Throwable, ObservableSource<?>>() {
+                @Override
+                public ObservableSource<?> apply(Throwable throwable) throws Exception {
+                    if(throwable instanceof ApiException.ResponseThrowable){
+                        ApiException.ResponseThrowable apiException = (ApiException.ResponseThrowable) throwable;
+                        if(apiException.code == 4 || apiException.code == 201){
+                            //缺少wid
+                            String key = "xpub6DK7ng2Nj7Mg3aktsbx56vsPoMe4sxxe1aMxCF2CaL1R3E5Vsyxfc8j8hM3bJ3i2Dj8Ym6nAJ4UAp8oEZBaEfrsEesUPZTuhzXCSQNsxs7y";
+                            Call<HttpResult<WidData.Wid>> call = createApi(Api.class).getWidSync(new GetWidBody(key),"http://119.23.10.138:1880/res/wallets/wid");
+                            HttpResult<WidData.Wid> httpResult = call.execute().body();
+                            if(httpResult != null){
+                                if(httpResult.getCode() == 0){
+                                    WidData.Wid wid = httpResult.getData();
+                                    if(wid != null && !TextUtils.isEmpty(wid.getW_id())){
+                                        Sp.from(AppModule.provideContext(), Constants.SP_CONFIG).writer().putString("wid",wid.getW_id()).apply();
+                                        return Observable.just(wid);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //其他情况，直接将error返回
+                    return Observable.error(throwable);
+                }
+            });
+        }
+    }
+
 }

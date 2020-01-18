@@ -1,8 +1,12 @@
 package com.wp.android_base.test;
 
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.TextView;
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.ScreenUtil;
+import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.base.widget.recyclerview.decoration.LinearItemDecoration;
 
 import java.util.ArrayList;
@@ -23,6 +28,8 @@ import java.util.List;
  */
 
 public class RecyclerViewTestActivity extends BaseActivity{
+
+    static final String TAG = "RecyclerViewTestActivity";
 
     private RecyclerView mRecyclerView;
 
@@ -44,7 +51,12 @@ public class RecyclerViewTestActivity extends BaseActivity{
         super.requestDatas();
         mDatas = new ArrayList<>();
         for(int i=0;i<100;i++){
-            mDatas.add("position>>" + i);
+            int random = 1 + (int) (Math.random() * (10 -1 + 1));
+            StringBuilder sb = new StringBuilder();
+            for(int j=0;j<random;j++){
+                sb.append("text");
+            }
+            mDatas.add(sb.toString() + i);
         }
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -65,7 +77,21 @@ public class RecyclerViewTestActivity extends BaseActivity{
 
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.ViewHolder holder, int position) {
-            holder.txPosition.setText(mDatas.get(position));
+            holder.txAuto.setText(mDatas.get(position));
+ /*           holder.txAuto.setTextSize(TypedValue.COMPLEX_UNIT_SP,30);
+            TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(holder.txAuto,20,30,TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM,TypedValue.COMPLEX_UNIT_SP);
+            if(position == 3){
+                int width = holder.txAuto.getMeasuredWidth();
+                Logger.e(TAG,"width= " + width);
+            }
+            holder.txAuto.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            int width = holder.txAuto.getMeasuredWidth();
+            Logger.e(TAG,"position = " + position,"getMeasuredWidth= " + width);
+
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) holder.txAuto.getLayoutParams();
+            params.width = width;
+            params.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
+            holder.txAuto.setLayoutParams(params);*/
         }
 
         @Override
@@ -74,11 +100,14 @@ public class RecyclerViewTestActivity extends BaseActivity{
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder{
-            public TextView txPosition;
+            public TextView txAuto;
+            public TextView txComplete;
             public ViewHolder(View itemView) {
                 super(itemView);
-                txPosition = itemView.findViewById(R.id.tx_recycler_test);
+                txAuto = itemView.findViewById(R.id.tx_auto);
+                txComplete = itemView.findViewById(R.id.tx_complete_display);
             }
         }
     }
+
 }

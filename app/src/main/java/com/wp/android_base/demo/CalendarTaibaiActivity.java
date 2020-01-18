@@ -104,7 +104,7 @@ public class CalendarTaibaiActivity extends BaseActivity{
             public TextView txPosition;
             public ViewHolder(View itemView) {
                 super(itemView);
-                txPosition = itemView.findViewById(R.id.tx_recycler_test);
+                txPosition = itemView.findViewById(R.id.tx_auto);
             }
         }
     }

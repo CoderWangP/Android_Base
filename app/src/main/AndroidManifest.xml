@@ -112,7 +112,8 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".test.ConstraintLayoutActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
 
         <activity android:name=".demo.EditTextFocusActivity"
@@ -130,6 +131,9 @@
         <activity android:name=".test.java.JavaActivity" />
         <activity android:name=".test.java.ThreadPoolActivity" />
         <activity android:name=".test.base.ToastActivity" />
+        <activity android:name=".demo.nestscrollview.NestscrollActivity" />
+        <activity android:name=".test.tab.MutTabsActivity" />
+        <activity android:name=".test.tab.DynamicViewPagerActivity" />
 
         <service android:name=".service.MyService"
             android:exported="false"/>

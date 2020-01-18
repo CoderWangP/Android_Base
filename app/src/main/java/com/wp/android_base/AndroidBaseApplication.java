@@ -6,7 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.squareup.leakcanary.LeakCanary;
 import com.wp.android_base.base.http.ApiException;
 import com.wp.android_base.base.http.HttpRequestManager;
-import com.wp.android_base.api.gituser.GitUserApi;
+import com.wp.android_base.api.gituser.Api;
 import com.wp.android_base.base.http.HttpResult;
 import com.wp.android_base.model.gituser.GitUser;
 import com.wp.android_base.base.utils.AppModule;
@@ -38,7 +38,7 @@ public class AndroidBaseApplication extends Application{
     }
 
     private void textHttpApi() {
-        HttpRequestManager.createApi(GitUserApi.class).testNullApiImpl("octocat")
+/*        HttpRequestManager.createApi(Api.class).testNullApiImpl("octocat")
                 .compose(HttpRequestManager.createDefaultTransformer(this))
                 .subscribe(new HttpRequestManager.SimpleObserver<HttpResult>(this) {
                     @Override
@@ -52,7 +52,7 @@ public class AndroidBaseApplication extends Application{
                     }
                 });
 
-        HttpRequestManager.createApi(GitUserApi.class).getGitUser("octocat")
+        HttpRequestManager.createApi(Api.class).getGitUser("octocat")
                 .compose(HttpRequestManager.createDefaultTransformer(this))
                 .subscribe(new HttpRequestManager.SimpleObserver<HttpResult<List<GitUser>>>(this) {
                     @Override
@@ -64,7 +64,7 @@ public class AndroidBaseApplication extends Application{
                     protected void onError(ApiException.ResponseThrowable responseThrowable) {
 
                     }
-                });
+                });*/
     }
 
 }

@@ -1,6 +1,8 @@
 package com.wp.android_base;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.EditText;
@@ -9,9 +11,11 @@ import android.widget.TextView;
 import com.wp.android_base.base.BaseActivity;
 import com.wp.android_base.base.utils.BigDecimalUtil;
 import com.wp.android_base.base.utils.PackageUtil;
+import com.wp.android_base.base.utils.TimeUtil;
 import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.demo.CalendarTaibaiActivity;
 import com.wp.android_base.demo.EditTextFocusActivity;
+import com.wp.android_base.demo.nestscrollview.NestscrollActivity;
 import com.wp.android_base.miner.MiningActivity;
 import com.wp.android_base.service.TestServiceActivity;
 import com.wp.android_base.test.ConstraintLayoutActivity;
@@ -27,6 +31,7 @@ import com.wp.android_base.test.banner.RvWithViewPagerActivity;
 import com.wp.android_base.test.check.lifeccycle.LifecycleTestActivity;
 import com.wp.android_base.test.check.event.TouchEventActivity;
 import com.wp.android_base.test.java.JavaActivity;
+import com.wp.android_base.test.java.clone.Person;
 import com.wp.android_base.test.rx.RxTestActivity;
 import com.wp.android_base.test.tab.TabWidgetActivity;
 import com.wp.android_base.base.utils.ScreenUtil;
@@ -35,6 +40,10 @@ import com.wp.android_base.test.view.CustomViewStateActivity;
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.TimeZone;
 
 /**
  *
@@ -75,7 +84,69 @@ public class MainActivity extends BaseActivity {
         secureRandom.nextBytes(bytes);
         bytesToBits(bytes);
 
+        textCalendar();
+
+        roundToSignificantFigures(0.0023,2);
+
+        String value = BigDecimalUtil.formatLegal("0.0023",2);
+        Logger.e(TAG,"formatLegal = " + value);
+        randomData(12);
     }
+
+    /**
+     * 随机生成1，num不重复的数
+     * @param num
+     * @return
+     */
+    private int[] randomData(int num){
+        int[] numbers = new int[num];
+        //[1,num]
+        for(int i=0;i<num;i++){
+            numbers[i] = i + 1;
+        }
+        int[] results = new int[num];
+        int max = num;
+        for(int i=0;i<results.length;i++){
+            int random = (int) (Math.random() * max);
+            results[i] = numbers[random];
+            //用number中最大值，替换掉number已被选中的值，剩余的random生成的index同时 -1
+            numbers[random] = numbers[max -1];
+            max--;
+        }
+        Logger.e(TAG,Arrays.toString(results));
+        return results;
+    }
+
+
+    private double roundToSignificantFigures(double num, int n) {
+        if(num == 0) {
+            return 0;
+        }
+        final double d = Math.ceil(Math.log10(num < 0 ? -num: num));
+        Logger.e(TAG,"d=" + d);
+        final int power = n - (int) d;
+        Logger.e(TAG,"power=" + power);
+
+        final double magnitude = Math.pow(10, power);
+        Logger.e(TAG,"magnitude=" + magnitude);
+        final long shifted = Math.round(num*magnitude);
+        Logger.e(TAG,"shifted=" + shifted);
+        Logger.e(TAG,"shifted/magnitude =" + shifted/magnitude);
+        return shifted/magnitude;
+    }
+
+
+    private void textCalendar() {
+        Calendar currentCalendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        Logger.e(TAG,"current utc time: " + TimeUtil.formatLong2Time(currentCalendar.getTimeInMillis()/ 1000,"yyyy-MM-dd HH:mm:ss",TimeZone.getTimeZone("UTC")));
+        //当前日期 + 1
+        currentCalendar.add(Calendar.DATE,1);
+        int day = currentCalendar.get(Calendar.DATE);
+        Date date = new Date(currentCalendar.getTimeInMillis());
+        Logger.e(TAG,"current utc time: " + TimeUtil.formatLong2Time(date.getTime()/ 1000,"yyyy-MM-dd HH:mm:ss",TimeZone.getTimeZone("UTC")));
+    }
+
+
 
     public static byte[] getByteArray(byte value) {
         byte[] byteArr = new byte[8]; //一个字节八位
@@ -115,8 +186,8 @@ public class MainActivity extends BaseActivity {
         Logger.e(TAG, value1);
         Logger.e(TAG, BigDecimalUtil.scale(value1));
 
-        Logger.e(TAG, PackageUtil.getPackageName(this));
-        Logger.e(TAG, PackageUtil.isAppProcess(this));
+        Logger.e(TAG, PackageUtil.getPackageName());
+        Logger.e(TAG, PackageUtil.isAppProcess());
     }
 
     private void rsa() {
@@ -141,8 +212,31 @@ public class MainActivity extends BaseActivity {
 
 
     public void banner(View v) {
-        Intent intent = new Intent(this, BannerActivity.class);
-        startActivity(intent);
+/*        Intent intent = new Intent(this, BannerActivity.class);
+        startActivity(intent);*/
+        forward2Play();
+    }
+
+    private void forward2Play() {
+        Intent intent1 = new Intent(Intent.ACTION_VIEW);
+        intent1.setData(Uri.parse(
+                "https://play.google.com/store/apps/details?id=com.viabtc.wallet"));
+        intent1.setPackage("com.android.vending");
+        if(intent1.resolveActivity(getPackageManager()) != null){
+            startActivity(intent1);
+        }else{
+            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.viabtc.wallet");
+            Intent intent2 = new Intent();
+            intent2.setAction("android.intent.action.VIEW");
+            intent2.setData(uri);
+            startActivity(intent2);
+        }
+
+ /*       Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.viabtc.wallet");
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(uri);
+        startActivity(intent);*/
     }
 
     public void mining(View v) {
@@ -240,5 +334,9 @@ public class MainActivity extends BaseActivity {
 
     public void java(View view) {
         startActivity(new Intent(this, JavaActivity.class));
+    }
+
+    public void nestScroll(View view) {
+        startActivity(new Intent(this, NestscrollActivity.class));
     }
 }
