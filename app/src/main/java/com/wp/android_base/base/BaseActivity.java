@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.wp.android_base.R;
+import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.StatusBarUtil;
 import com.wp.android_base.base.utils.language.ContextWrapper;
 import com.wp.android_base.base.utils.language.LanguageUtil;
@@ -28,7 +29,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     @Override
     protected void attachBaseContext(Context newBase) {
         //适配多语言
-        Locale newLocale = LanguageUtil.getCurrentAppLangByLocale();
+        Locale newLocale = LanguageUtil.getCurrentAppLangByLocale(AppModule.provideContext());
         super.attachBaseContext(ContextWrapper.wrap(newBase, newLocale));
     }
 

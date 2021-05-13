@@ -1,8 +1,10 @@
 package com.wp.android_base.test.banner;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -70,7 +72,7 @@ public class BannerActivity extends BaseActivity {
 
         mRvPager = findViewById(R.id.rv_pager);
 
-        mRvPager.addItemDecoration(new LinearItemDecoration(Color.WHITE,ScreenUtil.dp2px(14)));
+//        mRvPager.addItemDecoration(new LinearItemDecoration(Color.WHITE,ScreenUtil.dp2px(14)));
         manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRvPager.setLayoutManager(manager);
@@ -80,11 +82,18 @@ public class BannerActivity extends BaseActivity {
         rvBannerAdapter.setData(bannerItemDatas);
         mRvPager.setAdapter(rvBannerAdapter);
 
-/*        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
-        pagerSnapHelper.attachToRecyclerView(mRvPager);*/
+        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper();
+        pagerSnapHelper.attachToRecyclerView(mRvPager);
 
-        PagerEndSnapHelper pagerEndSnapHelper = new PagerEndSnapHelper();
-        pagerEndSnapHelper.attachToRecyclerView(mRvPager);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRvPager.smoothScrollToPosition(1);
+            }
+        },1000 * 10);
+
+/*        PagerEndSnapHelper pagerEndSnapHelper = new PagerEndSnapHelper();
+        pagerEndSnapHelper.attachToRecyclerView(mRvPager);*/
 
         mRvPager.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

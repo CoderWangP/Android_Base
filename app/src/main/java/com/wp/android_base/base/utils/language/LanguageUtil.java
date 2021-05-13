@@ -23,9 +23,9 @@ public class LanguageUtil {
      * 返回当前语言，以Locale形式
      * @return
      */
-    public static Locale getCurrentAppLangByLocale() {
+    public static Locale getCurrentAppLangByLocale(Context context) {
         Locale locale = null;
-        String language = getSavedAppLanguage();
+        String language = getSavedAppLanguage(context);
         switch (language) {
             case LanguageDef.SIMPLE_CHINESE:
                 locale = Locale.SIMPLIFIED_CHINESE;
@@ -44,8 +44,8 @@ public class LanguageUtil {
      * 返回当前语言，以Str形式
      * @return
      */
-    public static @LanguageDef String getCurrentAppLangByStr() {
-        return getSavedAppLanguage();
+    public static @LanguageDef String getCurrentAppLangByStr(Context context) {
+        return getSavedAppLanguage(context);
     }
 
     /**
@@ -60,8 +60,8 @@ public class LanguageUtil {
      * 如果没有找到存储的Language，表示是首次进入，这时需要根据用户的手机环境来判断选择使用哪种语言
      * @return
      */
-    private static @LanguageDef String getSavedAppLanguage() {
-        String language = Sp.from(AppModule.provideContext(),SP_LANGUAGE_NAME).read().getString(KEY_FOR_LANGUAGE,"none");
+    private static @LanguageDef String getSavedAppLanguage(Context context) {
+        String language = Sp.from(context,SP_LANGUAGE_NAME).read().getString(KEY_FOR_LANGUAGE,"none");
         if("none".equals(language)){
             Locale locale = Locale.getDefault();
             String lang = locale.getLanguage();
@@ -81,22 +81,22 @@ public class LanguageUtil {
     }
 
 
-    public static boolean isChinese(){
-        String lang = getSavedAppLanguage();
+    public static boolean isChinese(Context context){
+        String lang = getSavedAppLanguage(context);
         return LanguageDef.SIMPLE_CHINESE.equals(lang) || LanguageDef.TRADITIONAL_CHINESE.equals(lang);
     }
-    public static boolean isSimpleChinese(){
-        String lang = getSavedAppLanguage();
+    public static boolean isSimpleChinese(Context context){
+        String lang = getSavedAppLanguage(context);
         return LanguageDef.SIMPLE_CHINESE.equals(lang);
     }
 
-    public static boolean isTraditionalChinese(){
-        String lang = getSavedAppLanguage();
+    public static boolean isTraditionalChinese(Context context){
+        String lang = getSavedAppLanguage(context);
         return LanguageDef.TRADITIONAL_CHINESE.equals(lang);
     }
 
-    public static boolean isEnglish(){
-        String lang = getSavedAppLanguage();
+    public static boolean isEnglish(Context context){
+        String lang = getSavedAppLanguage(context);
         return LanguageDef.ENGLISH.equals(lang);
     }
 }

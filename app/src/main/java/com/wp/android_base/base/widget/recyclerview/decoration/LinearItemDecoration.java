@@ -2,7 +2,6 @@ package com.wp.android_base.base.widget.recyclerview.decoration;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -10,10 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.wp.android_base.base.utils.ScreenUtil;
 
 /**
- * Created by wangpeng on 2018/9/18.
+ * Created by wp on 2018/9/18.
  * <p>
  * Description:LinearLayoutManager的间隔
  */
@@ -42,6 +40,10 @@ public class LinearItemDecoration extends RecyclerView.ItemDecoration {
         this(Color.parseColor(color), dividerSize);
     }
 
+    public LinearItemDecoration(String color, int dividerSize, boolean isStartAddDecoration, boolean isEndAddDecoration) {
+        this(Color.parseColor(color),dividerSize,isStartAddDecoration,isEndAddDecoration);
+    }
+
     public LinearItemDecoration(int color, int dividerSize) {
         this(color, dividerSize, false, false);
     }
@@ -52,6 +54,7 @@ public class LinearItemDecoration extends RecyclerView.ItemDecoration {
         this.mIsStartAddDecoration = isStartAddDecoration;
         this.mIsEndAddDecoration = isEndAddDecoration;
     }
+
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {

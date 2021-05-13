@@ -24,6 +24,7 @@ import com.wp.android_base.model.gituser.GitUser;
 import com.wp.android_base.base.utils.log.Logger;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by wangpeng on 2018/6/25.
@@ -32,6 +33,8 @@ import java.util.List;
 public class HttpApiTestActivity extends BaseActivity {
 
     private TextView mTxClose;
+
+    private String TAG = "HttpApiTestActivity";
 
     @Override
     protected int getContentLayoutId() {
@@ -44,12 +47,16 @@ public class HttpApiTestActivity extends BaseActivity {
 
         mTxClose = findViewById(R.id.tx_close);
 
-/*        GitUserApiImpl.testApiLifecycle(this).subscribe(new HttpRequestManager.SimpleObserver<HttpResult<GitUser>>(this) {
+        GitUserApiImpl
+                .testApiLifecycle(this)
+                .delay(3, TimeUnit.SECONDS)
+                .subscribe(new HttpRequestManager.SimpleObserver<HttpResult<GitUser>>(this) {
             @Override
             protected void onSuccess(HttpResult<GitUser> httpResult) {
-                if (httpResult.getCode() == CodeConstant.CODE_UNAUTHORIZED) {
+   /*             if (httpResult.getCode() == CodeConstant.CODE_UNAUTHORIZED) {
                     LoginActivity.forward2Login(HttpApiTestActivity.this);
-                }
+                }*/
+                Logger.d(TAG,"update ui");
             }
 
             @Override
@@ -59,7 +66,7 @@ public class HttpApiTestActivity extends BaseActivity {
         });
 
 
-        GitUserApiImpl.getGitUser(this, "octocat").subscribe(new HttpRequestManager.SimpleObserver<HttpResult<List<GitUser>>>(this) {
+        /*GitUserApiImpl.getGitUser(this, "octocat").subscribe(new HttpRequestManager.SimpleObserver<HttpResult<List<GitUser>>>(this) {
             @Override
             protected void onSuccess(HttpResult<List<GitUser>> listHttpResult) {
 
@@ -90,6 +97,7 @@ public class HttpApiTestActivity extends BaseActivity {
     }
 
     public void close(View v) {
+        Logger.d(TAG,"finish");
         finish();
     }
 

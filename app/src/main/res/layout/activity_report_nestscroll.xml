@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--    <com.wp.android_base.demo.nestscrollview.ReportLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
+
+
+    <TextView
+        android:id="@+id/tx_account"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="账号"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_account"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tx_account"
+        app:layout_constraintStart_toStartOf="parent"
+        android:overScrollMode="never"/>
+
+
+     <com.wp.android_base.demo.nestscrollview.NestHScrollView
+         android:id="@+id/hs_data"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         app:layout_constraintStart_toEndOf="@+id/tx_account"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         android:orientation="horizontal"
+         android:overScrollMode="never">
+
+         <LinearLayout
+             android:id="@+id/ll_data"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+             <LinearLayout
+                 android:id="@+id/ll_headers"
+                 android:layout_width="match_parent"
+                 android:layout_height="50dp"
+                 android:gravity="center"
+                 android:orientation="horizontal"/>
+
+
+             <android.support.v7.widget.RecyclerView
+                 android:id="@+id/rv_data"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:overScrollMode="never"/>
+
+         </LinearLayout>
+
+     </com.wp.android_base.demo.nestscrollview.NestHScrollView>
+
+
+    <!--    </com.wp.android_base.demo.nestscrollview.ReportLayout>-->
+
+</android.support.constraint.ConstraintLayout>

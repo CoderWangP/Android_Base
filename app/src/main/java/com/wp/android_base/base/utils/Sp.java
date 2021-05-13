@@ -36,6 +36,9 @@ public class Sp {
 
     private Sp(Context context, String spName) {
         mContext = context.getApplicationContext();
+        if(mContext == null){
+            mContext = context;
+        }
         if (TextUtils.isEmpty(spName)) {
             mSpName = ANDROID_BASE_SP;
         } else {
@@ -67,7 +70,7 @@ public class Sp {
 
     public SharedPreferences read() {
         if (mSp == null) {
-            mSp = mContext.getApplicationContext().getSharedPreferences(mSpName, Context.MODE_PRIVATE);
+            mSp = mContext.getSharedPreferences(mSpName, Context.MODE_PRIVATE);
         }
 
         return mSp;

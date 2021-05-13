@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.wp.android_base.R;
 import com.wp.android_base.base.BaseActivity;
+import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.language.LanguageDef;
 import com.wp.android_base.base.utils.language.LanguageUtil;
 
@@ -65,7 +66,7 @@ public class MultiLanguageActivity extends BaseActivity{
 
     private void setLanguage(){
         String language = null;
-        switch (LanguageUtil.getCurrentAppLangByStr()){
+        switch (LanguageUtil.getCurrentAppLangByStr(AppModule.provideContext())){
             case LanguageDef.SIMPLE_CHINESE:
                 mIndex = 0;
                 language = "中文简体";

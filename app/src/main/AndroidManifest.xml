@@ -134,9 +134,18 @@
         <activity android:name=".demo.nestscrollview.NestscrollActivity" />
         <activity android:name=".test.tab.MutTabsActivity" />
         <activity android:name=".test.tab.DynamicViewPagerActivity" />
+        <activity android:name=".test_kotlin.TestKotlinActivity" />
+        <activity android:name=".test.recyclerview.SwipeTestActivity" />
+        <activity android:name=".demo.nestscrollview.ReportNestscrollDemoActivity" />
+        <activity android:name=".test.recyclerview.StickRecyclerViewActivity" />
 
         <service android:name=".service.MyService"
             android:exported="false"/>
+
+        <activity android:name=".demo.topsales.MainActivity"/>
+        <activity android:name=".demo.nestscrollview.FormDemoActivity" />
+        <activity android:name=".demo.form.FormActivity" />
+        <activity android:name=".test.base.XSeekBarActivity" />
 
 
     </application>

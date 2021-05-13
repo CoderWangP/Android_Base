@@ -1,11 +1,18 @@
 package com.wp.android_base.base.widget.recyclerview.snaphelper;
 
+import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
+
 
 import com.wp.android_base.base.utils.log.Logger;
+
 
 
 /**
@@ -16,15 +23,24 @@ import com.wp.android_base.base.utils.log.Logger;
 
 public class ExtendPagerSnapHelper extends PagerSnapHelper{
 
+    private static final String TAG = "ExtendPagerSnapHelper";
+
     private RecyclerView mRecyclerView;
+
+    private Handler mHandler;
+    private Runnable mRunnable;
+    private boolean canScroll = true;
+    private boolean isPlaying = false;
+
+    private int delayMillis = 4 * 1000;
 
     private final RecyclerView.OnScrollListener mScrollListener =
             new RecyclerView.OnScrollListener() {
-                boolean mScrolled = false;
+                boolean scrolled = false;
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && mScrolled) {
-                        mScrolled = false;
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && scrolled) {
+                        scrolled = false;
                         if(mOnPageChangeListener != null){
                             mOnPageChangeListener.onPageSelected(getCurrentItem());
                         }
@@ -32,16 +48,16 @@ public class ExtendPagerSnapHelper extends PagerSnapHelper{
                 }
 
                 @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     if (dx != 0 || dy != 0) {
-                        mScrolled = true;
+                        scrolled = true;
                         if(mOnPageChangeListener == null || mRecyclerView == null || mRecyclerView.getLayoutManager() == null){
                             return;
                         }
                         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
                         if(layoutManager instanceof LinearLayoutManager){
                             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                            Logger.e("onScrolled>>","currentItem =" + getCurrentItem() ,"dx=" + dx,"calculateDistance = " + calculateDistanceToFinalSnap(linearLayoutManager,findSnapView(linearLayoutManager))[0]);
+                            Logger.d("onScrolled>>","currentItem =" + getCurrentItem() ,"dx=" + dx/*,"calculateDistance = " + calculateDistanceToFinalSnap(linearLayoutManager,findSnapView(linearLayoutManager))[0]*/);
                             if(linearLayoutManager.canScrollHorizontally()){
                                 mOnPageChangeListener.onPageScrolled(getCurrentItem(),0,dx);
                             }else if(linearLayoutManager.canScrollVertically()){
@@ -52,9 +68,10 @@ public class ExtendPagerSnapHelper extends PagerSnapHelper{
                 }
             };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void attachToRecyclerView(@Nullable RecyclerView recyclerView) throws IllegalStateException {
-        if(mRecyclerView == null){
+        if(recyclerView == null){
             return;
         }
         if (mRecyclerView == recyclerView) {
@@ -63,6 +80,24 @@ public class ExtendPagerSnapHelper extends PagerSnapHelper{
         this.mRecyclerView = recyclerView;
         mRecyclerView.removeOnScrollListener(mScrollListener);
         mRecyclerView.addOnScrollListener(mScrollListener);
+        if(canScroll){
+            mRecyclerView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()){
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            start();
+                            break;
+                        case MotionEvent.ACTION_DOWN:
+                        case MotionEvent.ACTION_MOVE:
+                            stop();
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
 
         super.attachToRecyclerView(recyclerView);
     }
@@ -92,10 +127,17 @@ public class ExtendPagerSnapHelper extends PagerSnapHelper{
         }
     }
 
-    public int getCurrentItem() {
+    private int getCurrentItem() {
         if (mRecyclerView != null) {
             RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
-            return layoutManager.getPosition(findSnapView(layoutManager));
+            if(layoutManager == null){
+                return RecyclerView.NO_POSITION;
+            }
+            View currentView = findSnapView(layoutManager);
+            if(currentView == null){
+                return RecyclerView.NO_POSITION;
+            }
+            return layoutManager.getPosition(currentView);
         }
         return RecyclerView.NO_POSITION;
     }
@@ -109,5 +151,32 @@ public class ExtendPagerSnapHelper extends PagerSnapHelper{
 
     public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener){
         this.mOnPageChangeListener = onPageChangeListener;
+    }
+
+    public void start(){
+        Logger.d(TAG,"start");
+        if(mHandler == null){
+            mHandler = new Handler();
+        }
+        if(mRunnable == null){
+            mRunnable = () -> {
+                mHandler.postDelayed(mRunnable,delayMillis);
+                setCurrentItem(getCurrentItem() + 1,true);
+            };
+        }
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler.postDelayed(mRunnable,delayMillis);
+        isPlaying = true;
+    }
+
+    public void stop(){
+        Logger.d(TAG,"stop");
+        if(!isPlaying){
+            return;
+        }
+        isPlaying = false;
+        if(mHandler != null && mRunnable != null){
+            mHandler.removeCallbacks(mRunnable);
+        }
     }
 }

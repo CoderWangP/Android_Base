@@ -20,7 +20,8 @@ import io.reactivex.functions.Function;
 public class GitUserApiImpl {
 
     public static Observable<HttpResult<GitUser>> testApiLifecycle(final LifecycleProvider lifecycleProvider){
-        return Observable.interval(1, TimeUnit.SECONDS)
+        return Observable
+                .interval(1, TimeUnit.SECONDS)
                 .flatMap(new Function<Long, ObservableSource<HttpResult<GitUser>>>() {
                     @Override
                     public ObservableSource<HttpResult<GitUser>> apply(final Long aLong) throws Exception {
@@ -29,9 +30,9 @@ public class GitUserApiImpl {
                             @Override
                             public void subscribe(ObservableEmitter<HttpResult<GitUser>> emitter) throws Exception {
                                 HttpResult<GitUser> httpResult = new HttpResult<>();
-                                if(aLong == 3){
+    /*                            if(aLong == 3){
                                     httpResult.setCode(401);
-                                }
+                                }*/
                                 GitUser gitUserData = new GitUser();
                                 gitUserData.setCount(aLong);
                                 httpResult.setData(gitUserData);

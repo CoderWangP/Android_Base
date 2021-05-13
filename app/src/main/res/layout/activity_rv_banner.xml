@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tx_about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="专门为稳定币设计的低滑点、低手续费的兑换池协议，低手续费的兑换池协专门为稳定币设计的低滑点、低手续费的兑换池协议，低手续费的兑换池协低手续费的兑换池协议，低手续费的兑换池协"
+        android:textSize="12sp"
+        android:ellipsize="end"
+        android:maxLines="2"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_pager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:paddingLeft="14dp"
-        android:clipToPadding="false"/>
+        android:layout_height="200dp" />
 
 </LinearLayout>

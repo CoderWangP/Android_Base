@@ -1,5 +1,8 @@
 package com.wp.android_base.base.crypto;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.regex.Pattern;
 
@@ -28,6 +31,29 @@ public class NumericUtil {
         byte[] bytes = new byte[size];
         SECURE_RANDOM.nextBytes(bytes);
         return bytes;
+    }
+
+    /**
+     * 将字符串转成MD5值
+     *
+     * @param source
+     * @return
+     */
+    public static String stringToMD5(String source) {
+        byte[] hash;
+        try {
+            hash = MessageDigest.getInstance("MD5").digest(source.getBytes("UTF-8"));
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        }
+        StringBuilder hex = new StringBuilder(hash.length * 2);
+        for (byte b : hash) {
+            if ((b & 0xFF) < 0x10)
+                hex.append("0");
+            hex.append(Integer.toHexString(b & 0xFF));
+        }
+        return hex.toString();
     }
 
     /**

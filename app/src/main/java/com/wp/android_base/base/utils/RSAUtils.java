@@ -84,15 +84,8 @@ public class RSAUtils {
             //处理数据
             resultBytes = cipher.doFinal(srcData);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+                | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
 
@@ -212,9 +205,7 @@ public class RSAUtils {
 
             publicKey = keyFactory.generatePublic(keySpec);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
 
@@ -240,9 +231,7 @@ public class RSAUtils {
 
             privateKey = keyFactory.generatePrivate(keySpec);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
             e.printStackTrace();
         }
         return privateKey;

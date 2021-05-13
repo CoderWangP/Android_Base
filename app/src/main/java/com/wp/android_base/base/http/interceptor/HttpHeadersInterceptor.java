@@ -3,6 +3,7 @@ package com.wp.android_base.base.http.interceptor;
 import android.support.annotation.NonNull;
 
 
+import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.PackageUtil;
 import com.wp.android_base.base.utils.SystemUtil;
 import com.wp.android_base.base.utils.language.LanguageUtil;
@@ -24,7 +25,7 @@ public class HttpHeadersInterceptor implements Interceptor {
     public Response intercept(@NonNull Chain chain) throws IOException {
         //添加header数据
         Request request = chain.request().newBuilder()
-                .addHeader("Accept-Language", LanguageUtil.getCurrentAppLangByStr())
+                .addHeader("Accept-Language", LanguageUtil.getCurrentAppLangByStr(AppModule.provideContext()))
                 .addHeader("X-Platform", "Android")
                 .removeHeader("User-Agent")
                 .addHeader("User-Agent",getUserAgent())
@@ -40,7 +41,8 @@ public class HttpHeadersInterceptor implements Interceptor {
         String appName = PackageUtil.getAppName();
         String packageName = PackageUtil.getPackageName();
         String systemVersion = SystemUtil.getSystemVersion();
-        userAgent = appName + "/" + versionName + "(" + packageName +";build:" + versionCode + ";Android" +  systemVersion + ")" +  "okhttp3/3.10.0";
+        userAgent = appName + "/" + versionName + "(" + packageName +";build:" +
+                versionCode + ";Android" +  systemVersion + ")" +  "okhttp3/3.10.0";
         return userAgent;
     }
 }

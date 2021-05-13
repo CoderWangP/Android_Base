@@ -1,21 +1,31 @@
 package com.wp.android_base;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wp.android_base.base.BaseActivity;
+import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.BigDecimalUtil;
 import com.wp.android_base.base.utils.PackageUtil;
 import com.wp.android_base.base.utils.TimeUtil;
+import com.wp.android_base.base.utils.ToastUtil;
 import com.wp.android_base.base.utils.log.Logger;
 import com.wp.android_base.demo.CalendarTaibaiActivity;
 import com.wp.android_base.demo.EditTextFocusActivity;
+import com.wp.android_base.demo.form.FormActivity;
 import com.wp.android_base.demo.nestscrollview.NestscrollActivity;
+import com.wp.android_base.demo.nestscrollview.ReportNestscrollDemoActivity;
 import com.wp.android_base.miner.MiningActivity;
 import com.wp.android_base.service.TestServiceActivity;
 import com.wp.android_base.test.ConstraintLayoutActivity;
@@ -28,20 +38,25 @@ import com.wp.android_base.test.banner.HorSWithViewPagerActivity;
 import com.wp.android_base.test.banner.PagerMaginActivity;
 import com.wp.android_base.test.banner.RvBannerActivity;
 import com.wp.android_base.test.banner.RvWithViewPagerActivity;
+import com.wp.android_base.test.base.XSeekBarActivity;
 import com.wp.android_base.test.check.lifeccycle.LifecycleTestActivity;
 import com.wp.android_base.test.check.event.TouchEventActivity;
 import com.wp.android_base.test.java.JavaActivity;
 import com.wp.android_base.test.java.clone.Person;
+import com.wp.android_base.test.recyclerview.StickRecyclerViewActivity;
 import com.wp.android_base.test.rx.RxTestActivity;
 import com.wp.android_base.test.tab.TabWidgetActivity;
 import com.wp.android_base.base.utils.ScreenUtil;
 import com.wp.android_base.test.view.CustomViewStateActivity;
+import com.wp.android_base.test_kotlin.TestKotlinActivity;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -176,7 +191,7 @@ public class MainActivity extends BaseActivity {
         editText.setSelection(0);
         String params = "a=3&b=1";
         String[] keyValues = params.split("&|=");
-        rsa();
+
 
         mTxGlide = findViewById(R.id.glide);
 
@@ -190,31 +205,12 @@ public class MainActivity extends BaseActivity {
         Logger.e(TAG, PackageUtil.isAppProcess());
     }
 
-    private void rsa() {
-/*        String text = "128fbec97fd740160defc74c5d340b5c";
-        String enTx = "RvvScEmuXH+wHTupQ/c9jt1aQ2Meht1v49y6kvyBiuhYYv4+5QnFgXJkUBQk8d8U/MQRTKMPr+Qt" +
-                "1mobJNdjUwbsZjqbEtHpn2bF/UQCrm07JNapn578jmkTYnyvxZsuiRzUbbc5RcAe99vAkMyDfSTG" +
-                "/Do5LhO5h8BQ2RilW8a9ZAZL48UgX2yblvR2tAGYLzF8PnWWOhhoEhzYfZYb4PJFMbb2AtDqS5KR" +
-                "Qdb8PtfR3WtqG+/axZtwNeCBSifXQcK6KwkyzuGJj//Fq4L60SoXGKaQlLiUIx3F8AvG1WnvF7Zt" +
-                "qKUzIxtA5coHay0A8//DO+Ug4CXnHyQMfla3wA==";
-        try {
-            PublicKey publicKey = RSAUtils.keyStrToPublicKey(RSAUtils.readKeyFromAssets(getApplication(),"publicKey.txt"));
-            PrivateKey privateKey = RSAUtils.keyStrToPrivate(RSAUtils.readKeyFromAssets(getApplication(),"privateKey.txt"));
-            String encrpt = RSAUtils.encryptDataByPublicKey(text.getBytes(),publicKey);
-            LogUtil.e("加密文本",encrpt);
-            String decrypt = RSAUtils.decryptedToStrByPrivate(enTx,privateKey);
-            LogUtil.e("解密文本",decrypt);
-        } catch (Exception e) {
-            e.printStackTrace();
-            LogUtil.e("加密解密",e.getMessage());
-        }*/
-    }
 
 
     public void banner(View v) {
-/*        Intent intent = new Intent(this, BannerActivity.class);
-        startActivity(intent);*/
-        forward2Play();
+        Intent intent = new Intent(this, BannerActivity.class);
+        startActivity(intent);
+//        forward2Play();
     }
 
     private void forward2Play() {
@@ -338,5 +334,50 @@ public class MainActivity extends BaseActivity {
 
     public void nestScroll(View view) {
         startActivity(new Intent(this, NestscrollActivity.class));
+    }
+
+    public void kotlin(View view) {
+        TestKotlinActivity.Companion.forward2TestKotlin(this);
+    }
+
+    public void ReportNestscroll(View view) {
+//        startActivity(new Intent(this, ReportNestscrollDemoActivity.class));
+
+        com.wp.android_base.demo.topsales.MainActivity.forward(this);
+    }
+
+    public void stickRecyclerView(View view) {
+
+/*        Snackbar mSnackbar=Snackbar.make(findViewById(R.id.btn_stick), "it is Snackbar", Snackbar.LENGTH_SHORT);
+        View v=mSnackbar.getView();
+        ViewGroup.LayoutParams vl = v.getLayoutParams();
+        CoordinatorLayout.LayoutParams cl = new CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.WRAP_CONTENT,
+                CoordinatorLayout.LayoutParams.WRAP_CONTENT);
+        //设置字体为红色
+        ((TextView) v.findViewById(R.id.snackbar_text)).setTextColor(Color.RED);
+        //设置显示位置居中
+        cl.gravity = Gravity.CENTER;
+        v.setLayoutParams(cl);
+        //设置背景色为绿色
+        v.setBackgroundColor(Color.GREEN);
+        //自定义动画
+        //v.setAnimation();
+        //设置按钮为蓝色
+        mSnackbar.setActionTextColor(Color.BLUE).setAction("点我", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show();*/
+
+        startActivity(new Intent(this, StickRecyclerViewActivity.class));
+    }
+
+    public void form(View view) {
+        startActivity(new Intent(this, FormActivity.class));
+    }
+
+    public void xSeekBar(View view) {
+        startActivity(new Intent(this, XSeekBarActivity.class));
     }
 }

@@ -82,6 +82,19 @@
    1. git add.
    2. git commit -m “提交信息”
 
+##21.两个分支的差异
+    1.Git diff branch1 branch2 --stat
+     //显示出所有有差异的文件列表 
+
+    2.Git diff branch1 branch2 文件名(带路径)
+     //显示指定文件的详细差异 
+
+    3.Git diff branch1 branch2
+    //显示出所有有差异的文件的详细差异
+## 22..gitignore规则不生效，需要删除本地缓存，重新提交
+    1.git rm -r --cached .
+    2.git add .
+    3.git commit -m 'update .gitignore'
 
 adb push ./app/build/outputs/patch/ViaBTC/release/patch_signed_7zip.apk /storage/sdcard0/
 

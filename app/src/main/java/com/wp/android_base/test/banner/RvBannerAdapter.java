@@ -59,13 +59,13 @@ public class RvBannerAdapter extends RecyclerView.Adapter<RvBannerAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.image_banner);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) image.getLayoutParams();
+/*            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) image.getLayoutParams();
             params.width = ScreenUtil.getScreenWidth() - ScreenUtil.dp2px(14 * 3);
 //            params.width = ScreenUtil.getScreenWidth() - ScreenUtil.dp2px(14 * 2 * 2);
 //            params.width = ScreenUtil.getScreenWidth();
             params.height = RelativeLayout.LayoutParams.MATCH_PARENT;
 //            params.height = ScreenUtil.dp2px(300);
-            image.setLayoutParams(params);
+            image.setLayoutParams(params);*/
         }
     }
 }

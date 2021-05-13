@@ -16,7 +16,6 @@ import com.wp.android_base.BuildConfig;
 import com.wp.android_base.Constants;
 import com.wp.android_base.api.gituser.Api;
 import com.wp.android_base.base.http.interceptor.HttpHeadersInterceptor;
-import com.wp.android_base.base.http.interceptor.XWIDInterceptorNew;
 import com.wp.android_base.base.utils.AppModule;
 import com.wp.android_base.base.utils.Sp;
 import com.wp.android_base.base.utils.log.Logger;
@@ -82,7 +81,6 @@ public class HttpRequestManager implements CodeConstant {
             OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder()
                     //添加头部
                     .addInterceptor(new HttpHeadersInterceptor())
-                    .addInterceptor(new XWIDInterceptorNew())
                     .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);

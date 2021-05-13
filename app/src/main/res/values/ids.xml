@@ -14,4 +14,6 @@
     <item name="statusbarutil_fake_status_bar_view" type="id"/>
     <item name="statusbarutil_translucent_view" type="id"/>
 
+    <item name="id_stick_header" type="id"/>
+
 </resources>

@@ -90,6 +90,7 @@ public class Logger {
             return;
         }
         String[] logContents = createLogContents(tag, contents);
+        Log.d("AAA",logContents[0]);
         tag = logContents[0];
         String msg = logContents[1];
         printLog(logLevel, tag, msg);
@@ -122,7 +123,7 @@ public class Logger {
 
     private static void printLog(@LogLevelDef int logLevel, String tag, String msg) {
 
-        printBorder(logLevel, tag, true);
+//        printBorder(logLevel, tag, true);
 
         int len = msg.length();
         int countOfSub = len / MAX_LEN;
@@ -138,7 +139,7 @@ public class Logger {
         } else {
             printSubLog(logLevel, tag, msg);
         }
-        printBorder(logLevel, tag, false);
+//        printBorder(logLevel, tag, false);
     }
 
     private static void printSubLog(final @LogLevelDef int logLevel, final String tag, String msg) {
