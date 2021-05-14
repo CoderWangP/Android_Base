@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android_Base.iml" filepath="$PROJECT_DIR$/Android_Base.iml" group="Android_Base" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Android_Base/app" />
-      <module fileurl="file://$PROJECT_DIR$/lib-aop/lib-aop.iml" filepath="$PROJECT_DIR$/lib-aop/lib-aop.iml" group="Android_Base/lib-aop" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Android_Base.iml" filepath="$PROJECT_DIR$/.idea/modules/Android_Base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Android_Base.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Android_Base.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib-aop/Android_Base.lib-aop.iml" filepath="$PROJECT_DIR$/.idea/modules/lib-aop/Android_Base.lib-aop.iml" />
     </modules>
   </component>
 </project>
